@@ -1,0 +1,442 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bank Soalan Darjah 5 SAJ</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap">
+<style>
+/* Layout: satu lajur kerja; jalur atas berlabuh, kad soalan bertindan, papan muallim dengan grid ringkasan */
+:root{
+  --bg:#eef3f0; --surface:#ffffff; --sunk:#e3ebe6; --ink:#12241d; --muted:#5a6d65; --line:#cfdcd5;
+  --brand:#0d5b46; --brand-ink:#ffffff; --gold:#a8670f; --gold-soft:#f6ead6;
+  --ok:#1d7a3e; --ok-soft:#e1f2e6; --bad:#b4372b; --bad-soft:#f8e3e0;
+  --f-ui:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-ar:"Noto Naskh Arabic","Amiri","Traditional Arabic","Arial",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1714; --surface:#14221d; --sunk:#1b2c26; --ink:#e4efe9; --muted:#9db1a8; --line:#2a3f37;
+  --brand:#4fbf98; --brand-ink:#08130f; --gold:#e3a84e; --gold-soft:#33281a;
+  --ok:#5fcf86; --ok-soft:#173523; --bad:#f08376; --bad-soft:#3a1d1a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1714; --surface:#14221d; --sunk:#1b2c26; --ink:#e4efe9; --muted:#9db1a8; --line:#2a3f37;
+  --brand:#4fbf98; --brand-ink:#08130f; --gold:#e3a84e; --gold-soft:#33281a;
+  --ok:#5fcf86; --ok-soft:#173523; --bad:#f08376; --bad-soft:#3a1d1a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--brand)}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--brand);color:var(--brand-ink)}
+header.top .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:12px}
+.brand{display:flex;flex-direction:column;min-width:0;flex:1}
+.brand b{font-size:1.05rem;font-weight:700;letter-spacing:.01em}
+.brand span{font-size:.78rem;opacity:.85}
+nav.tabs{display:flex;gap:6px}
+nav.tabs button{font:inherit;font-size:.85rem;font-weight:600;border:1px solid color-mix(in srgb,var(--brand-ink) 40%,transparent);background:transparent;color:var(--brand-ink);padding:7px 14px;border-radius:999px;cursor:pointer}
+nav.tabs button[aria-pressed="true"]{background:var(--brand-ink);color:var(--brand)}
+main{padding-block:24px 64px}
+h1,h2,h3{text-wrap:balance;margin:0}
+h1{font-size:1.5rem;font-weight:700}
+h2{font-size:1.15rem;font-weight:700}
+.lead{color:var(--muted);margin:6px 0 0;max-width:62ch}
+.stack{display:flex;flex-direction:column;gap:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-weight:600;font-size:.9rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 16px;border-radius:10px;cursor:pointer}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+input[type=text],input[type=password],select{font:inherit;font-size:.95rem;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);min-width:0}
+.subjects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:18px}
+.subj{text-align:start;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.subj[aria-pressed="true"]{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand) inset}
+.subj .ttl{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.subj .ttl b{font-size:1.1rem}
+.subj .arname{font-family:var(--f-ar);font-size:1.35rem;color:var(--brand)}
+.subj small{color:var(--muted)}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--brand);padding-bottom:6px;margin-top:10px}
+.sec-head span{font-size:.8rem;color:var(--muted)}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.q.ok{border-color:var(--ok);background:linear-gradient(var(--ok-soft),var(--ok-soft)) top/100% 4px no-repeat,var(--surface)}
+.q.bad{border-color:var(--bad);background:linear-gradient(var(--bad-soft),var(--bad-soft)) top/100% 4px no-repeat,var(--surface)}
+.qmeta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.num{font-weight:700;font-variant-numeric:tabular-nums;background:var(--brand);color:var(--brand-ink);border-radius:8px;min-width:34px;text-align:center;padding:2px 8px;font-size:.85rem}
+.chip{font-size:.72rem;font-weight:600;letter-spacing:.02em;padding:3px 8px;border-radius:999px;background:var(--gold-soft);color:var(--gold);white-space:nowrap}
+.chip.topic{background:var(--sunk);color:var(--muted)}
+.chip.lv{background:transparent;border:1px solid currentColor}
+.chip.lv-Senang{color:var(--ok)} .chip.lv-Sederhana{color:var(--gold)} .chip.lv-Susah{color:var(--bad)}
+.qtext{font-size:1rem}
+.qtext.rtl{direction:rtl;text-align:right;font-family:var(--f-ar);font-size:1.4rem;line-height:1.9}
+.ar{font-family:var(--f-ar);font-size:1.18em;line-height:1.6}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.opts.rtl{direction:rtl}
+.opt{font:inherit;color:inherit;display:flex;gap:10px;align-items:center;text-align:start;background:var(--sunk);border:1px solid transparent;border-radius:10px;padding:9px 12px;cursor:pointer;min-width:0}
+.opt .lt{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:.85rem;background:var(--surface);font-family:var(--f-ar)}
+.opt .tx{min-width:0;overflow-wrap:anywhere}
+.opts.rtl .opt .tx{font-family:var(--f-ar);font-size:1.25rem}
+.opt[aria-pressed="true"]{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,var(--surface))}
+.opt[aria-pressed="true"] .lt{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.opt.key{border-color:var(--ok);background:var(--ok-soft)}
+.opt.key .lt{background:var(--ok);color:var(--surface);border-color:var(--ok)}
+.opt:disabled{cursor:default}
+.mark{font-weight:700;font-size:.85rem}
+.mark.ok{color:var(--ok)} .mark.bad{color:var(--bad)}
+.bar{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);margin-top:18px;padding-block:12px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.progress{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.9rem}
+.score{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.score .big{font-size:2.4rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--brand);line-height:1}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.login{max-width:380px;margin:30px auto 0}
+.login form{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.login label{font-size:.82rem;font-weight:600;color:var(--muted)}
+.err{color:var(--bad);font-size:.88rem;min-height:1.2em}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--sunk);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:1.5rem;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.78rem;color:var(--muted)}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
+th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+td.n{font-variant-numeric:tabular-nums}
+.keygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:6px}
+.keygrid div{background:var(--sunk);border-radius:8px;padding:6px;text-align:center;font-variant-numeric:tabular-nums;font-size:.8rem}
+.keygrid b{display:block;font-family:var(--f-ar);font-size:1.15rem;color:var(--ok)}
+.explain{background:var(--gold-soft);border-radius:10px;padding:10px 12px;font-size:.92rem}
+.explain b{color:var(--gold)}
+.hint{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.hintbtn{font:inherit;font-size:.82rem;font-weight:600;color:var(--brand);background:transparent;border:1px dashed var(--brand);border-radius:999px;padding:4px 12px;cursor:pointer}
+.hinttx{background:var(--sunk);border-left:3px solid var(--brand);border-radius:6px;padding:8px 12px;font-size:.9rem}
+.ref{font-size:.82rem;color:var(--muted);margin-top:6px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.muted{color:var(--muted)}
+.inline-confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+@media (prefers-reduced-motion:no-preference){.opt,.btn,.subj{transition:background .15s,border-color .15s}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><b>Bank Soalan Darjah 5</b><span>Sekolah Agama Kerajaan Johor · Bahasa Arab &amp; Muamalat</span></div>
+    <nav class="tabs" aria-label="Mod">
+      <button id="tab-murid" aria-pressed="true">Latihan Murid</button>
+      <button id="tab-guru" aria-pressed="false">Dashboard Muallim</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="view-murid" class="stack"></section>
+  <section id="view-guru" class="stack" hidden></section>
+</main>
+<div class="bar" id="bar" hidden><div class="wrap"><span class="progress" id="prog"></span><div class="row"><button class="btn" id="btn-reset">Mula semula</button><button class="btn primary" id="btn-submit">Hantar &amp; semak markah</button></div></div></div>
+
+<script>
+/* ============ SUMBER KERTAS SEBENAR ============ */
+const PAPERS = {
+  "PAT 2022":"Peperiksaan Akhir Tahun 2022 (JAIJ)",
+  "PAT 2023":"Peperiksaan Pertengahan Tahun / PAT 2023 (JAIJ)",
+  "PAT 2024":"PAT 2024 (JAIJ)",
+  "PAT 2025":"Peperiksaan Akhir Tahun 2025 (JAIJ)",
+  "PPT 2026":"Peperiksaan Pertengahan Tahun 2026",
+  "UPP2 2026":"Ujian Pentaksiran Pertengahan 2 2026"
+};
+const SECTIONS = [
+  {id:"A",from:1,to:20,name:"Bahagian A · Aneka Pilihan",note:"Ikut format soalan 1–20 kertas sebenar"},
+  {id:"B",from:21,to:25,name:"Bahagian B · Betul / Salah",note:"Ikut format soalan 21–25"},
+  {id:"C",from:26,to:30,name:"Bahagian C · Padankan",note:"Ikut format soalan 26–30 (3 pilihan)"},
+  {id:"D",from:31,to:40,name:"Bahagian D · Isi Tempat Kosong",note:"Ikut format soalan 31–40"},
+  {id:"E",from:41,to:50,name:"Bahagian E · Pengukuhan Konsep",note:"Berasaskan soalan 41–50 & subjektif"},
+  {id:"F",from:51,to:65,name:"Bahagian F · Soalan Ekstra PAT 2022",note:"Aras 3:2:1 → 8 senang · 5 sederhana · 2 susah"}
+];
+
+/* ============ BAHASA ARAB ============ */
+const AR = [
+{n:1,h:"Pecahkan 102 = 100 + 2. Perkataan bagi 'dua' ialah اثْنَانِ.",r:"Pelajaran 1: Mari Mengira Angka",q:"مَا الرَّقْمُ «١٠٢» بِالْكَلِمَةِ؟",o:["مِائَةٌ","مِائَةٌ وَاثْنَانِ","مِائَةٌ وَعِشْرُونَ","مِائَةٌ وَأَرْبَعُونَ"],a:1,t:"Nombor (العدد)",src:["PAT 2023 S1","PPT 2026 S1"],ex:"١٠٢ = 100 + 2, maka dibaca مِائَةٌ وَاثْنَانِ (seratus dua). مِائَةٌ وَعِشْرُونَ = 120, مِائَةٌ وَأَرْبَعُونَ = 140."},
+{n:2,h:"مِائَةٌ = 100. Berapakah nilai ثَلَاثُونَ?",r:"Pelajaran 1: Mari Mengira Angka",q:"مَا الْعَدَدُ «مِائَةٌ وَثَلَاثُونَ» بِالرَّقْمِ؟",o:["١١٣","١٠٣","١٣٣","١٣٠"],a:3,t:"Nombor (العدد)",src:["PAT 2024 S1","PPT 2026 S46"],ex:"مِائَةٌ = 100 dan ثَلَاثُونَ = 30, jadi jumlahnya ١٣٠ (130)."},
+{n:3,h:"عَشَرَةٌ bermaksud sepuluh.",r:"Pelajaran 1: Mari Mengira Angka",q:"مَا الرَّقْمُ «١١٠» بِالْكَلِمَةِ؟",o:["مِائَةٌ وَعَشَرَةٌ","مِائَةٌ وَوَاحِدٌ","مِائَةٌ وَعِشْرُونَ","مِائَةٌ وَخَمْسَةٌ"],a:0,t:"Nombor (العدد)",src:["PAT 2024 S2","PPT 2026 S21"],ex:"١١٠ = 100 + 10 → مِائَةٌ وَعَشَرَةٌ. مِائَةٌ وَوَاحِدٌ = 101, مِائَةٌ وَخَمْسَةٌ = 105."},
+{n:4,h:"Nombor selepas 100 ialah 100 + 1. وَاحِدٌ = satu.",r:"Pelajaran 1: Mari Mengira Angka",q:"مَا هُوَ الْعَدَدُ بَعْدَ مِائَةٍ؟",o:["مِائَةٌ وَوَاحِدٌ","مِائَةٌ وَعَشَرَةٌ","مِائَةٌ وَعِشْرُونَ","مِائَةٌ وَثَلَاثُونَ"],a:0,t:"Nombor (العدد)",src:["PAT 2025 S2"],ex:"Nombor selepas 100 ialah 101, iaitu مِائَةٌ وَوَاحِدٌ."},
+{n:5,h:"يُعَالِجُ bermaksud merawat. Siapakah yang merawat pesakit?",r:"Pelajaran 2: Di Hospital",q:"مَنْ يُعَالِجُ الْمَرْضَى فِي الْمُسْتَشْفَى؟",o:["الطَّبِيبُ","الْمُمَرِّضَةُ","الْمُدَرِّسَةُ","الْمَرِيضَةُ"],a:0,t:"Hospital (المستشفى)",src:["PAT 2023 S5","PAT 2024 S5","PPT 2026 S7"],ex:"يُعَالِجُ = merawat. Yang merawat pesakit ialah الطَّبِيبُ (doktor). الْمُمَرِّضَةُ (jururawat) membantu doktor."},
+{n:6,h:"تُسَاعِدُ الطَّبِيبَ = membantu doktor. Siapa pembantu doktor di hospital?",r:"Pelajaran 2: Di Hospital",q:"فَاطِمَةُ تُسَاعِدُ الطَّبِيبَ فِي الْمُسْتَشْفَى. مَنْ هِيَ فَاطِمَةُ؟",o:["الْمَرِيضَةُ","الْمُمَرِّضَةُ","الْأُسْتَاذَةُ","الْمُدَرِّسَةُ"],a:1,t:"Hospital (المستشفى)",src:["PAT 2023 S4","PAT 2024 S6"],ex:"تُسَاعِدُ الطَّبِيبَ = membantu doktor. Orang yang membantu doktor di hospital ialah الْمُمَرِّضَةُ (jururawat)."},
+{n:7,h:"Lihat jadual kosa kata hospital: Jururawat = Mumarridhatun.",r:"Pelajaran 2: Di Hospital",q:"الْكَلِمَةُ «جوروراوت» بِاللُّغَةِ الْعَرَبِيَّةِ:",o:["دَوَاءٌ","طَبِيبٌ","مَرِيضَةٌ","مُمَرِّضَةٌ"],a:3,t:"Hospital (المستشفى)",src:["PAT 2025 S7","PPT 2026 S19"],ex:"Jururawat = مُمَرِّضَةٌ. دَوَاءٌ = ubat, طَبِيبٌ = doktor, مَرِيضَةٌ = pesakit perempuan."},
+{n:8,h:"Pilih amalan yang baik untuk tubuh badan.",r:"Tajuk: Menjaga Kesihatan",q:"كَيْفَ نُحَافِظُ عَلَى الصِّحَّةِ؟",o:["نَأْخُذُ الْمُخَدِّرَاتِ","نَقْتَرِبُ مِنَ التَّدْخِينِ","نُمَارِسُ الرِّيَاضَةَ","نَنَامُ مُتَأَخِّرًا"],a:2,t:"Kesihatan (الصحة)",src:["PAT 2023 S6","PAT 2024 S7","PPT 2026 S10"],ex:"Menjaga kesihatan dengan نُمَارِسُ الرِّيَاضَةَ (kita bersenam). Dadah, merokok dan tidur lewat merosakkan kesihatan."},
+{n:9,h:"Fi'il mudhari' bermula dengan salah satu huruf أ، ن، ي، ت.",r:"Tatabahasa: Fi'il Mudhari' (perbuatan sedang berlaku)",q:"عَيِّنِ الْفِعْلَ الْمُضَارِعَ فِي الْجُمْلَةِ «يَلْبَسُ مُحَمَّدٌ لِبَاسَ الرِّيَاضَةِ».",o:["لَبِسَ","يَلْبَسُ","اِلْبَسْ","لِبَاسٌ"],a:1,t:"Kata kerja (الفعل)",src:["PAT 2023 S7","PPT 2026 S13"],ex:"Fi'il mudhari' (kata kerja sedang/akan) bermula dengan huruf mudhara'ah: يَلْبَسُ. لَبِسَ = madhi, اِلْبَسْ = amar, لِبَاسٌ = isim (pakaian)."},
+{n:10,h:"Perkataan ini menyuruh Khadijah menulis sekarang.",r:"Tatabahasa: Fi'il Amar (kata suruh)",q:"يَا خَدِيجَةُ، اُكْتُبِي الْآنَ! كَلِمَةُ «اُكْتُبِي» هِيَ ……",o:["فِعْلُ الْأَمْرِ","اسْمُ الْإِشَارَةِ","الْفِعْلُ الْمُضَارِعُ","الْفِعْلُ الْمَاضِي"],a:0,t:"Kata kerja (الفعل)",src:["PAT 2023 S10","PAT 2025 S27"],ex:"اُكْتُبِي ialah suruhan kepada seorang perempuan (أَنْتِ), maka ia فِعْلُ الْأَمْرِ."},
+{n:11,h:"طُلَّابٌ ialah ramai pelajar lelaki (أَنْتُمْ). Semak jadual Kata Suruh: lihat bentuk untuk أَنْتُمْ.",r:"Tatabahasa: Fi'il Amar (kata suruh)",q:"يَا طُلَّابُ، …… آلَاتِ التَّنْظِيفِ فِي الْحَقِيبَةِ.",o:["اِجْمَعْ","اِجْمَعَا","اِجْمَعِي","اِجْمَعُوا"],a:3,t:"Kata kerja (الفعل)",src:["PAT 2023 S11","PPT 2026 S17"],ex:"طُلَّابٌ ialah jamak lelaki (أَنْتُمْ), maka fi'il amar ialah اِجْمَعُوا. اِجْمَعْ untuk أَنْتَ, اِجْمَعَا untuk أَنْتُمَا, اِجْمَعِي untuk أَنْتِ."},
+{n:12,h:"Cari sayur, bukan buah. Semak senarai sayur-sayuran dalam nota.",r:"Pelajaran 4: Pasar Tani (السوق الزراعي)",q:"مِنْ أَمْثِلَةِ الْخَضْرَوَاتِ هِيَ ……",o:["التُّفَّاحُ","الْخِيَارُ","الْعِنَبُ","الْبَابَايَا"],a:1,t:"Makanan (الأطعمة)",src:["PAT 2023 S12","PAT 2025 S31"],ex:"الْخِيَارُ (timun) ialah sayur-sayuran. التُّفَّاحُ (epal), الْعِنَبُ (anggur) dan الْبَابَايَا (betik) ialah buah-buahan."},
+{n:13,h:"Cari perkataan yang digunakan untuk bertanya.",r:"Tatabahasa: Asma' al-Istifham (kata tanya)",q:"مِنْ أَسْمَاءِ الْاِسْتِفْهَامِ هِيَ ……",o:["أَنْتَ","هُوَ","مَتَى","فِي"],a:2,t:"Kata tanya (اسم الاستفهام)",src:["PAT 2023 S13","PAT 2024 S13","UPP2 2026 S2"],ex:"مَتَى (bila) ialah kata tanya. أَنْتَ dan هُوَ ialah ضَمِيرٌ, manakala فِي ialah حَرْفُ جَرٍّ."},
+{n:14,h:"12 Rabiulawal ialah tarikh kelahiran Nabi ﷺ.",r:"Tajuk: Sambutan Maulidur Rasul ﷺ",q:"أَقَامَ الْمُسْلِمُونَ الْاِحْتِفَالَ بِذِكْرَى …… فِي ١٢ رَبِيعٍ الْأَوَّلِ.",o:["مَوْلِدِ النَّبِيِّ ﷺ","يَوْمِ الْاِسْتِقْلَالِ","الْإِسْرَاءِ وَالْمِعْرَاجِ","نُزُولِ الْقُرْآنِ"],a:0,t:"Maulidur Rasul (المولد النبوي)",src:["PAT 2023 S14","UPP2 2026 S4"],ex:"12 Rabiulawal ialah tarikh sambutan مَوْلِدُ النَّبِيِّ ﷺ (Maulidur Rasul)."},
+{n:15,h:"Lihat baris pada huruf تُ di hujung كَتَبْتُ. Siapa yang menulis?",r:"Tatabahasa: Fi'il Madhi (perbuatan telah berlaku)",q:"مَا هُوَ الضَّمِيرُ فِي الْجُمْلَةِ «كَتَبْتُ الرِّسَالَةَ»؟",o:["أَنَا","هُمَا","هُنَّ","نَحْنُ"],a:0,t:"Ganti nama (الضمير)",src:["PAT 2023 S3","PAT 2025 S36"],ex:"Baris dhammah pada تُ dalam كَتَبْتُ menunjukkan ضَمِيرُ أَنَا (saya)."},
+{n:16,h:"Semak jadual Perbuatan Telah Berlaku untuk نَحْنُ (kami/kita). Lihat huruf yang dibulatkan merah.",r:"Tatabahasa: Fi'il Madhi (perbuatan telah berlaku)",q:"نَحْنُ …… الرِّسَالَةَ إِلَى الْأُسْتَاذَةِ.",o:["كَتَبْتُ","كَتَبْنَا","كَتَبْتُمْ","كَتَبْتِ"],a:1,t:"Kata kerja (الفعل)",src:["PPT 2026 S8"],ex:"Fi'il madhi bagi نَحْنُ diakhiri نَا → كَتَبْنَا. كَتَبْتُ (أَنَا), كَتَبْتُمْ (أَنْتُمْ), كَتَبْتِ (أَنْتِ)."},
+{n:17,h:"هُمْ ialah mereka ramai lelaki. Semak baris هُمْ dalam jadual الْفِعْلُ الْمَاضِي (كَتَبَ – ذَهَبَ).",r:"Tatabahasa: Fi'il Madhi (perbuatan telah berlaku)",q:"مَا الْفِعْلُ الْمَاضِي بِضَمِيرِ «هُمْ»؟",o:["كَتَبَ","كَتَبَا","كَتَبُوا","كَتَبْتَ"],a:2,t:"Kata kerja (الفعل)",src:["PPT 2026 S5"],ex:"هُمْ (mereka lelaki ramai) → كَتَبُوا. كَتَبَ (هُوَ), كَتَبَا (هُمَا), كَتَبْتَ (أَنْتَ)."},
+{n:18,h:"Semak jadual المُخَاطَب: dengan huruf apakah fi'il untuk أَنْتَ bermula?",r:"Tatabahasa: Fi'il Mudhari' (perbuatan sedang berlaku)",q:"مَا الْفِعْلُ الْمُضَارِعُ لِلضَّمِيرِ «أَنْتَ»؟",o:["يَدْخُلُ","تَدْخُلُ","أَدْخُلُ","نَدْخُلُ"],a:1,t:"Kata kerja (الفعل)",src:["PPT 2026 S12","PPT 2026 S28"],ex:"Fi'il mudhari' bagi أَنْتَ bermula dengan تَـ → تَدْخُلُ. يَدْخُلُ (هُوَ), أَدْخُلُ (أَنَا), نَدْخُلُ (نَحْنُ)."},
+{n:19,h:"Untuk هُوَ, huruf awalnya يـ dan tiada tambahan di hujung.",r:"Tatabahasa: Fi'il Mudhari' (perbuatan sedang berlaku)",q:"عَيِّنِ الْفِعْلَ الْمُضَارِعَ لِلضَّمِيرِ «هُوَ».",o:["يَفْعَلْنَ","يَفْعَلُ","تَدْخُلُ","نَفْعَلُ"],a:1,t:"Kata kerja (الفعل)",src:["PAT 2024 S8"],ex:"هُوَ → يَفْعَلُ (bermula يَـ, tanpa tambahan akhir). يَفْعَلْنَ untuk هُنَّ, نَفْعَلُ untuk نَحْنُ."},
+{n:20,h:"Pelakunya dua: arnab (lelaki) dan kura-kura. Gabungan lelaki dan perempuan menggunakan bentuk lelaki berdua (هُمَا). Semak jadual الْفِعْلُ الْمُضَارِعُ.",r:"Tatabahasa: Fi'il Mudhari' (perbuatan sedang berlaku)",q:"الْأَرْنَبُ وَالسُّلَحْفَاةُ …… إِلَى الْغَابَةِ.",o:["ذَهَبَ","ذَهَبَتَا","يَذْهَبَانِ","تَذْهَبَانِ"],a:2,t:"Kata kerja (الفعل)",src:["PAT 2025 S10","PAT 2024 S37"],ex:"Pelaku dua (الْأَرْنَبُ lelaki + السُّلَحْفَاةُ perempuan). Gabungan lelaki dan perempuan menggunakan bentuk lelaki berdua → يَذْهَبَانِ."},
+{n:21,h:"كَمْ bermaksud 'berapa'. Adakah ia digunakan untuk bertanya?",r:"Tatabahasa: Asma' al-Istifham (kata tanya)",q:"«كَمْ» مِنْ أَسْمَاءِ الْاِسْتِفْهَامِ.",o:["صَحِيحٌ","خَطَأٌ"],a:0,t:"Kata tanya (اسم الاستفهام)",src:["PAT 2025 S21"],ex:"كَمْ (berapa) ialah اسْمُ اسْتِفْهَامٍ. Kenyataan ini BETUL."},
+{n:22,h:"هَذَا bermaksud 'ini'. Kata tunjuk atau kata ganti nama?",r:"Tatabahasa: Jenis-jenis Isim",q:"كَلِمَةُ «هَذَا» مِنْ أَنْوَاعِ الضَّمِيرِ.",o:["صَحِيحٌ","خَطَأٌ"],a:1,t:"Jenis isim (أنواع الاسم)",src:["PAT 2025 S24","UPP2 2026 S6"],ex:"هَذَا ialah اسْمُ الْإِشَارَةِ (kata tunjuk), bukan ضَمِيرٌ. Kenyataan ini SALAH."},
+{n:23,h:"Lihat perkataan pertama: isim atau fi'il?",r:"Tatabahasa: Al-Jumlah (ayat)",q:"«مُحَمَّدٌ حَصَدَ الْأَرُزَّ» جُمْلَةٌ فِعْلِيَّةٌ.",o:["صَحِيحٌ","خَطَأٌ"],a:1,t:"Ayat (الجملة)",src:["PAT 2024 S25","PAT 2023 S25"],ex:"Ayat ini bermula dengan isim (مُحَمَّدٌ), maka ia الْجُمْلَةُ الْاِسْمِيَّةُ. Kenyataan ini SALAH."},
+{n:24,h:"Fikirkan beza 'bagaimana' dengan 'di mana'.",r:"Tatabahasa: Asma' al-Istifham (kata tanya)",q:"«بݢايمان» بِاللُّغَةِ الْعَرَبِيَّةِ هِيَ «أَيْنَ».",o:["صَحِيحٌ","خَطَأٌ"],a:1,t:"Kata tanya (اسم الاستفهام)",src:["PAT 2025 S23"],ex:"Bagaimana = كَيْفَ. أَيْنَ bermaksud di mana. Kenyataan ini SALAH."},
+{n:25,h:"مِائَةٌ = 100, عَشَرَةٌ = 10.",r:"Pelajaran 1: Mari Mengira Angka",q:"«مِائَةٌ وَعَشَرَةٌ» هِيَ «١١٠».",o:["صَحِيحٌ","خَطَأٌ"],a:0,t:"Nombor (العدد)",src:["PPT 2026 S21"],ex:"مِائَةٌ (100) + عَشَرَةٌ (10) = ١١٠. Kenyataan ini BETUL."},
+{n:26,h:"قَرْيَةٌ = kampung, صَيَّادٌ = nelayan.",r:"Tajuk: Kampungku (القرية)",q:"كامڤوڠ نلاين",o:["قَرْيَةُ الصَّيَّادِ","جَزِيرَةُ لَنْكَاوِي","حَدِيقَةُ الْحَيَوَانِ"],a:0,t:"Tempat (الأماكن)",src:["PAT 2023 S26"],ex:"Kampung nelayan = قَرْيَةُ الصَّيَّادِ (قَرْيَةٌ = kampung, صَيَّادٌ = nelayan). حَدِيقَةُ الْحَيَوَانِ = zoo."},
+{n:27,h:"Kacang buncis tergolong dalam sayur atau buah?",r:"Pelajaran 4: Pasar Tani (السوق الزراعي)",q:"الْفَاصُولِيَا",o:["الْفَوَاكِهُ","الْخَضْرَوَاتُ","السَّمَكُ"],a:1,t:"Makanan (الأطعمة)",src:["PAT 2023 S27"],ex:"الْفَاصُولِيَا (kacang buncis) tergolong dalam الْخَضْرَوَاتُ (sayur-sayuran)."},
+{n:28,h:"Bulan kelahiran Nabi ﷺ ialah bulan ketiga dalam takwim Hijrah.",r:"Tajuk: Sambutan Maulidur Rasul ﷺ",q:"شَهْرُ مِيلَادِ الرَّسُولِ ﷺ",o:["مُحَرَّمٌ","ذُو الْحِجَّةِ","رَبِيعٌ الْأَوَّلُ"],a:2,t:"Maulidur Rasul (المولد النبوي)",src:["PAT 2025 S28","PAT 2023 S28"],ex:"Rasulullah ﷺ lahir pada bulan رَبِيعٌ الْأَوَّلُ (Rabiulawal)."},
+{n:29,h:"Ayat ini bermula dengan nama orang dan tiada kata kerja.",r:"Tatabahasa: Al-Jumlah (ayat)",q:"مُحَمَّدٌ رَجُلٌ صَالِحٌ",o:["الضَّمِيرُ","الْجُمْلَةُ الْفِعْلِيَّةُ","الْجُمْلَةُ الْاِسْمِيَّةُ"],a:2,t:"Ayat (الجملة)",src:["PAT 2023 S29","PAT 2025 S17"],ex:"Ayat bermula dengan isim (مُحَمَّدٌ) dan tiada fi'il → الْجُمْلَةُ الْاِسْمِيَّةُ."},
+{n:30,h:"أَنْتُمَا bermaksud kamu berdua. Semak jadual Kata Suruh (Tulis!) bagi أَنْتُمَا.",r:"Tatabahasa: Fi'il Amar (kata suruh)",q:"أَنْتُمَا",o:["اُكْتُبْ","اُكْتُبَا","اُكْتُبُوا"],a:1,t:"Kata kerja (الفعل)",src:["PAT 2024 S27"],ex:"أَنْتُمَا (kamu berdua) → fi'il amar berakhir alif: اُكْتُبَا. اُكْتُبْ (أَنْتَ), اُكْتُبُوا (أَنْتُمْ)."},
+{n:31,h:"أَلَمٌ فِي رَأْسِي = sakit di kepala. Semak kosa kata hospital.",r:"Pelajaran 2: Di Hospital",q:"أُصِبْتُ بِـ …… وَأَشْعُرُ بِأَلَمٍ فِي رَأْسِي.",o:["الصُّدَاعِ","الْمَغَصِ","الدَّوَاءِ","الْإِسْعَافِ"],a:0,t:"Kesihatan (الصحة)",src:["PAT 2023 S31"],ex:"أَلَمٌ فِي الرَّأْسِ (sakit di kepala) ialah الصُّدَاعُ (sakit kepala). الْمَغَصُ = sakit perut, الدَّوَاءُ = ubat, الْإِسْعَافُ = ambulans."},
+{n:32,h:"Selepas نَحْنُ diperlukan kata kerja yang bermula dengan نَـ.",r:"Tatabahasa: Fi'il Mudhari' (perbuatan sedang berlaku)",q:"نَحْنُ …… مَاءَ زَمْزَمَ.",o:["نَشْرَبُ","الصُّدَاعِ","الْأَسْمَاكَ","يَخْرُجُونَ"],a:0,t:"Kata kerja (الفعل)",src:["PAT 2023 S32"],ex:"نَحْنُ memerlukan fi'il mudhari' bermula نَـ → نَشْرَبُ (kami minum)."},
+{n:33,h:"Pantai terkenal di daerah Kota Tinggi, Johor.",r:"Pelajaran 3: Melancong dan Bersiar-siar",q:"شَاطِئُ …… فِي كوتا تيڠݢي.",o:["ديسارو","الْجَزَرَ","الْأَرُزَّ","مَوْلِدِ"],a:0,t:"Tempat (الأماكن)",src:["PAT 2024 S33","PAT 2023 S22"],ex:"Pantai Desaru terletak di Kota Tinggi, Johor → شَاطِئُ ديسارو."},
+{n:34,h:"Makanan kegemaran arnab, sejenis sayur berwarna oren.",r:"Tajuk: Kisah Arnab dan Kura-kura",q:"الْأَرْنَبُ يَأْكُلُ ……",o:["الْجَزَرَ","ديسارو","الْحَقْلُ","مَوْلِدِ"],a:0,t:"Cerita (القصة)",src:["PAT 2024 S32","PAT 2023 S21"],ex:"Arnab makan lobak merah → الْأَرْنَبُ يَأْكُلُ الْجَزَرَ."},
+{n:35,h:"Sambutan memperingati kelahiran Rasulullah ﷺ.",r:"Tajuk: Sambutan Maulidur Rasul ﷺ",q:"الْاِحْتِفَالُ بِذِكْرَى …… الرَّسُولِ.",o:["مَوْلِدِ","الْجَزَرَ","الْأَرُزَّ","الْحَقْلُ"],a:0,t:"Maulidur Rasul (المولد النبوي)",src:["PAT 2024 S31"],ex:"Sambutan memperingati kelahiran Rasul → الْاِحْتِفَالُ بِذِكْرَى مَوْلِدِ الرَّسُولِ."},
+{n:36,h:"سُوقٌ = pasar, اللَّيْلُ = malam.",r:"Pelajaran 4: Pasar Tani (السوق الزراعي)",q:"«ڤاسر مالم» بِاللُّغَةِ الْعَرَبِيَّةِ.",o:["سُوقُ اللَّيْلِ","مَوْسِمُ الْحَصَادِ","الْخَرِيطَةُ","الْبُرْتُقَالُ"],a:0,t:"Pasar (السوق)",src:["PAT 2025 S33","PAT 2024 S12"],ex:"سُوقٌ = pasar, اللَّيْلُ = malam → سُوقُ اللَّيْلِ (pasar malam)."},
+{n:37,h:"مَوْسِمٌ = musim. Menuai = الحَصَاد.",r:"Tajuk: Kampungku (القرية)",q:"«موسيم منواي» بِاللُّغَةِ الْعَرَبِيَّةِ.",o:["مَوْسِمُ الْحَصَادِ","سُوقُ اللَّيْلِ","الْخَرِيطَةُ","الْجَزَرُ"],a:0,t:"Kampung (القرية)",src:["PAT 2025 S34"],ex:"مَوْسِمٌ = musim, الْحَصَادُ = menuai → مَوْسِمُ الْحَصَادِ."},
+{n:38,h:"Benda yang digunakan untuk mencari jalan ketika melancong.",r:"Pelajaran 3: Melancong dan Bersiar-siar",q:"«ڤتا» بِاللُّغَةِ الْعَرَبِيَّةِ.",o:["الْخَرِيطَةُ","الْبُرْتُقَالُ","سُوقُ اللَّيْلِ","الْجَزَرُ"],a:0,t:"Tempat (الأماكن)",src:["PAT 2025 S35"],ex:"Peta = الْخَرِيطَةُ. الْبُرْتُقَالُ = oren."},
+{n:39,h:"Ke manakah pesakit pergi untuk dirawat?",r:"Pelajaran 2: Di Hospital",q:"تَذْهَبُ الْمَرِيضَةُ إِلَى ……",o:["الْمُسْتَشْفَى","كُلَّ يَوْمٍ","أَكْتُبُ","يَضْحَكَانِ"],a:0,t:"Hospital (المستشفى)",src:["PPT 2026 S31"],ex:"Pesakit (الْمَرِيضَةُ) pergi ke الْمُسْتَشْفَى (hospital); selepas إِلَى mesti nama tempat."},
+{n:40,h:"Cari keterangan masa yang sesuai untuk sarapan.",r:"Tajuk: Menjaga Kesihatan",q:"نَأْخُذُ الْفُطُورَ ……",o:["كُلَّ يَوْمٍ","آلَةُ التَّنْظِيفِ","يَضْحَكَانِ","الْمُسْتَشْفَى"],a:0,t:"Kesihatan (الصحة)",src:["PPT 2026 S32"],ex:"Kami bersarapan setiap hari → نَأْخُذُ الْفُطُورَ كُلَّ يَوْمٍ."},
+{n:41,h:"Mukhatab = orang yang diajak bercakap (awak/kamu).",r:"Tatabahasa: Al-Dhama'ir (kata ganti nama)",q:"أَيٌّ مِنَ الْآتِي ضَمِيرٌ لِلْمُخَاطَبِ؟",o:["هُوَ","هُمْ","أَنْتِ","هِيَ"],a:2,t:"Ganti nama (الضمير)",src:["PPT 2026 S11","PPT 2026 S41-45"],ex:"ضَمِيرُ الْمُخَاطَبِ (orang kedua): أَنْتَ، أَنْتِ، أَنْتُمَا، أَنْتُمْ، أَنْتُنَّ. هُوَ، هُمْ، هِيَ ialah ضَمِيرُ الْغَائِبِ."},
+{n:42,h:"Ghaib = orang yang tiada di hadapan (dia/mereka). Cari yang BUKAN ghaib.",r:"Tatabahasa: Al-Dhama'ir (kata ganti nama)",q:"الْآتِيَةُ مِنْ ضَمَائِرِ الْغَائِبِ إِلَّا ……",o:["هُوَ","هُمَا","أَنْتُمْ","هُنَّ"],a:2,t:"Ganti nama (الضمير)",src:["PAT 2024 S41-45","PAT 2024 S36"],ex:"ضَمِيرُ الْغَائِبِ: هُوَ، هِيَ، هُمَا، هُمْ، هُنَّ. أَنْتُمْ ialah ضَمِيرُ الْمُخَاطَبِ, maka ia jawapan (kecuali)."},
+{n:43,h:"مُفِيدَةٌ bermaksud memberi faedah atau makna yang lengkap.",r:"Tatabahasa: Al-Jumlah (ayat)",q:"«كُلُّ مَا تَرَكَّبَ مِنْ كَلِمَتَيْنِ أَوْ أَكْثَرَ وَأَفَادَ مَعْنًى تَامًّا» هِيَ الْجُمْلَةُ ……",o:["الْمُفِيدَةُ","الْاِسْمِيَّةُ","الْفِعْلِيَّةُ","شِبْهُ الْجُمْلَةِ"],a:0,t:"Ayat (الجملة)",src:["PAT 2023 S16","UPP2 2026 S24"],ex:"Ini ialah takrif الْجُمْلَةُ الْمُفِيدَةُ: tersusun daripada dua perkataan atau lebih dan memberi makna sempurna."},
+{n:44,h:"Nama الجُمْلَةُ الفِعْلِيَّةُ berasal daripada perkataan فِعْلٌ.",r:"Tatabahasa: Al-Jumlah (ayat)",q:"الْجُمْلَةُ الْفِعْلِيَّةُ هِيَ الْجُمْلَةُ الَّتِي تَبْدَأُ بِـ ……",o:["فِعْلٍ","اسْمٍ","ضَمِيرٍ","حَرْفٍ"],a:0,t:"Ayat (الجملة)",src:["PAT 2024 S48","UPP2 2026 S14"],ex:"Jumlah fi'liyyah bermula dengan fi'il. Ayat yang bermula dengan isim atau dhamir ialah jumlah ismiyyah (UPP2 S14)."},
+{n:45,h:"Cari ayat yang bermula dengan kata kerja.",r:"Tatabahasa: Al-Jumlah (ayat)",q:"مِنْ أَمْثِلَةِ الْجُمْلَةِ الْفِعْلِيَّةِ:",o:["مُحَمَّدٌ رَجُلٌ صَالِحٌ","هَذَا كِتَابُ السِّيرَةِ","رَأَيْتُ مَنْظَرًا جَمِيلًا","هُوَ حَسَنُ الْخُلُقِ"],a:2,t:"Ayat (الجملة)",src:["PAT 2023 S20","PAT 2024 S17","PAT 2025 S17"],ex:"رَأَيْتُ مَنْظَرًا جَمِيلًا bermula dengan fi'il رَأَى. Pilihan lain bermula dengan isim/dhamir (jumlah ismiyyah)."},
+{n:46,h:"Isim = kata nama. Cari yang bukan kata nama.",r:"Tatabahasa: Jenis-jenis Isim",q:"الْآتِيَةُ مِنْ أَنْوَاعِ الْاِسْمِ إِلَّا ……",o:["الضَّمِيرُ","فِعْلُ الْأَمْرِ","اسْمُ الْعَلَمِ","اسْمُ الْاِسْتِفْهَامِ"],a:1,t:"Jenis isim (أنواع الاسم)",src:["UPP2 2026 S5","PAT 2024 S18"],ex:"Jenis isim yang dipelajari: الضَّمِيرُ، اسْمُ الْإِشَارَةِ، اسْمُ الْعَلَمِ، اسْمُ الْاِسْتِفْهَامِ. فِعْلُ الْأَمْرِ ialah fi'il, bukan isim."},
+{n:47,h:"Kata kerja ialah perbuatan. Apakah perbuatan yang dilakukan oleh Muaz?",r:"Tatabahasa: Fi'il Madhi (perbuatan telah berlaku)",q:"«زَارَ مُعَاذٌ صَدِيقَهُ فِي الْمُسْتَشْفَى». عَيِّنِ الْفِعْلَ.",o:["زَارَ","فِي","صَدِيقَهُ","الْمُسْتَشْفَى"],a:0,t:"Kata kerja (الفعل)",src:["PAT 2025 S4","PAT 2025 S6"],ex:"زَارَ (telah melawat) ialah fi'il madhi. فِي = huruf jar; صَدِيقَهُ dan الْمُسْتَشْفَى = isim."},
+{n:48,h:"Akhiran ـنَا menunjukkan 'kami telah ...'.",r:"Tatabahasa: Fi'il Madhi (perbuatan telah berlaku)",q:"مَا نَوْعُ الْفِعْلِ «رَجَعْنَا»؟",o:["الْفِعْلُ الْمَاضِي","فِعْلُ الْأَمْرِ","الْفِعْلُ الْمُضَارِعُ","اسْمُ الْاِسْتِفْهَامِ"],a:0,t:"Kata kerja (الفعل)",src:["PAT 2025 S3","PAT 2024 S50"],ex:"رَجَعْنَا = kami telah pulang. Akhiran نَا pada fi'il menunjukkan fi'il madhi bagi نَحْنُ."},
+{n:49,h:"Sebelum makan, kita menyebut nama Allah (Bismillah).",r:"Tajuk: Adab Makan (Hadis)",q:"قَالَ الرَّسُولُ ﷺ: «يَا غُلَامُ، …… اللهَ وَكُلْ بِيَمِينِكَ».",o:["ذَكِّرْ","اِقْرَأْ","سَمِّ","اِسْمَعْ"],a:2,t:"Adab makan (الحديث)",src:["PAT 2025 S16"],ex:"Hadis: يَا غُلَامُ، سَمِّ اللهَ، وَكُلْ بِيَمِينِكَ (Wahai budak, sebutlah nama Allah dan makanlah dengan tangan kanan)."},
+{n:50,h:"Kemudahan awam di kampung, tempat beribadat.",r:"Tajuk: Kampungku (القرية)",q:"مِنَ التَّسْهِيلَاتِ فِي الْقَرْيَةِ:",o:["الْمَسْجِدُ","حَدِيقَةُ الْحَيَوَانِ","الْغَابَةُ","الْجَزِيرَةُ"],a:0,t:"Kampung (القرية)",src:["PAT 2025 S19","PAT 2023 S49","PAT 2024 S20"],ex:"التَّسْهِيلَاتُ = kemudahan awam. Di kampung terdapat الْمَسْجِدُ, الْمَدْرَسَةُ, الدَّكَاكِينُ dan الْمَلْعَبُ."},
+{n:51,h:"سِتَّةٌ = enam.",r:"Pelajaran 1: Mari Mengira Angka",d:"Senang",q:"حَوِّلْ «١٠٦» بِالْكَلِمَةِ.",o:["مِائَةٌ وَسِتَّةٌ","مِائَةٌ وَثَمَانِيَةٌ","مِائَةٌ وَتِسْعَةٌ","مِائَةٌ وَعَشَرَةٌ"],a:0,t:"Nombor (العدد)",src:["PAT 2022 S1"],ex:"١٠٦ = 100 + 6 → مِائَةٌ وَسِتَّةٌ. ثَمَانِيَةٌ = 8, تِسْعَةٌ = 9, عَشَرَةٌ = 10."},
+{n:52,h:"Ghaib = dia atau mereka.",r:"Tatabahasa: Al-Dhama'ir (kata ganti nama)",d:"Senang",q:"أَيٌّ مِمَّا يَأْتِي ضَمِيرُ الْغَائِبِ؟",o:["أَنَا","هُوَ","أَنْتَ","نَحْنُ"],a:1,t:"Ganti nama (الضمير)",src:["PAT 2022 S3"],ex:"هُوَ (dia lelaki) ialah ضَمِيرُ الْغَائِبِ. أَنَا dan نَحْنُ ialah مُتَكَلِّمٌ, أَنْتَ ialah مُخَاطَبٌ."},
+{n:53,h:"Mutakallim = orang yang bercakap (saya/kami).",r:"Tatabahasa: Al-Dhama'ir (kata ganti nama)",d:"Senang",q:"أَيٌّ مِمَّا يَأْتِي ضَمِيرُ الْمُتَكَلِّمِ؟",o:["أَنَا","أَنْتَ","هُمَا","أَنْتُمَا"],a:0,t:"Ganti nama (الضمير)",src:["PAT 2022 S7"],ex:"ضَمِيرُ الْمُتَكَلِّمِ (orang pertama): أَنَا dan نَحْنُ. أَنْتَ dan أَنْتُمَا ialah مُخَاطَبٌ, هُمَا ialah غَائِبٌ."},
+{n:54,h:"Jawapan yang sesuai bagi soalan 'Apa khabar?'",r:"Tajuk: Perbualan Harian",d:"Senang",q:"كَيْفَ حَالُكَ؟",o:["الْحَمْدُ لِلَّهِ","صَبَاحُ النُّورِ","مَسَاءُ النُّورِ","شُكْرًا جَزِيلًا"],a:0,t:"Perbualan (التحية)",src:["PAT 2022 S4"],ex:"كَيْفَ حَالُكَ؟ = Apa khabar? Jawapan yang sesuai: الْحَمْدُ لِلَّهِ (Alhamdulillah, baik). صَبَاحُ النُّورِ dan مَسَاءُ النُّورِ ialah balasan ucapan pagi/petang."},
+{n:55,h:"Cari buah. Semak senarai buah-buahan dalam Pelajaran 4.",r:"Pelajaran 4: Pasar Tani (السوق الزراعي)",d:"Senang",q:"مِنْ أَمْثِلَةِ الْفَوَاكِهِ هِيَ ……",o:["الْبَابَايَا","الْفُلْفُلُ","الْبَاذِنْجَانُ","الْفَاصُولِيَا"],a:0,t:"Makanan (الأطعمة)",src:["PAT 2022 S12"],ex:"الْبَابَايَا (betik) ialah buah. الْفُلْفُلُ (lada), الْبَاذِنْجَانُ (terung) dan الْفَاصُولِيَا (kacang buncis) ialah sayur."},
+{n:56,h:"Cari pakaian, bukan alat kebersihan diri.",r:"Pelajaran 3: Melancong dan Bersiar-siar",d:"Senang",q:"مِنْ أَمْثِلَةِ الْمَلَابِسِ هِيَ ……",o:["السِّرْوَالُ","الشَّامْبُو","الصَّابُونُ","فُرْشَةُ الْأَسْنَانِ"],a:0,t:"Persediaan (الرحلة)",src:["PAT 2022 S10"],ex:"السِّرْوَالُ (seluar) ialah pakaian. Syampu, sabun dan berus gigi ialah alat kebersihan."},
+{n:57,h:"Bulan kelahiran Nabi ﷺ: Ramadan atau Rabiulawal?",r:"Tajuk: Sambutan Maulidur Rasul ﷺ",d:"Senang",q:"وُلِدَ النَّبِيُّ مُحَمَّدٌ ﷺ فِي شَهْرِ رَمَضَانَ.",o:["صَحِيحٌ","خَطَأٌ"],a:1,t:"Maulidur Rasul (المولد النبوي)",src:["PAT 2022 S25"],ex:"SALAH. Nabi Muhammad ﷺ lahir pada bulan رَبِيعٌ الْأَوَّلُ, bukan Ramadan."},
+{n:58,h:"Kata tanya: bagaimana, bila, di mana ...",r:"Tatabahasa: Asma' al-Istifham (kata tanya)",d:"Senang",q:"مِنْ أَمْثِلَةِ أَسْمَاءِ الْاِسْتِفْهَامِ هِيَ ……",o:["مِنْ","وَ","أَوْ","كَيْفَ"],a:3,t:"Kata tanya (اسم الاستفهام)",src:["PAT 2022 S15"],ex:"كَيْفَ (bagaimana) ialah kata tanya. مِنْ, وَ dan أَوْ ialah huruf."},
+{n:59,h:"138 = 100 + 8 + 30. Angka sa disebut sebelum puluh, seperti ١٤٣ dalam nota.",r:"Pelajaran 1: Mari Mengira Angka",d:"Sederhana",q:"كَمْ رِنْجِيتًا؟ (RM ١٣٨)",o:["مِائَةٌ وَخَمْسَةٌ وَثَلَاثُونَ","مِائَةٌ وَثَمَانِيَةٌ وَثَلَاثُونَ","مِائَةٌ وَاثْنَانِ وَثَلَاثُونَ","مِائَةٌ وَثَلَاثَةٌ وَأَرْبَعُونَ"],a:1,t:"Nombor (العدد)",src:["PAT 2022 S2"],ex:"١٣٨ = 100 + 8 + 30. Dalam bahasa Arab, sa sebut dahulu sebelum puluh: مِائَةٌ وَثَمَانِيَةٌ وَثَلَاثُونَ."},
+{n:60,h:"Mukhatab bermula dengan تَـ. Semak jadual المُخَاطَب.",r:"Tatabahasa: Fi'il Mudhari' (perbuatan sedang berlaku)",d:"Sederhana",q:"عَيِّنِ الْفِعْلَ الْمُضَارِعَ لِلْمُخَاطَبِ.",o:["يَدْخُلُ","يَدْخُلَانِ","يَدْخُلُونَ","تَدْخُلَانِ"],a:3,t:"Kata kerja (الفعل)",src:["PAT 2022 S6"],ex:"تَدْخُلَانِ ialah bagi أَنْتُمَا (mukhatab). يَدْخُلُ (هُوَ), يَدْخُلَانِ (هُمَا), يَدْخُلُونَ (هُمْ) semuanya ghaib."},
+{n:61,h:"Mukhatab ialah orang yang diajak bercakap (أَنْتَ). Semak jadual Perbuatan Telah Berlaku untuk أَنْتَ dan perhatikan baris huruf terakhir.",r:"Tatabahasa: Fi'il Madhi (perbuatan telah berlaku)",d:"Sederhana",q:"الْفِعْلُ الْمَاضِي لِلْمُخَاطَبِ هُوَ ……",o:["ذَهَبْنَ","ذَهَبْتَ","ذَهَبْتُ","ذَهَبَتْ"],a:1,t:"Kata kerja (الفعل)",src:["PAT 2022 S26"],ex:"ذَهَبْتَ (baris atas pada تَ) untuk أَنْتَ. ذَهَبْتُ (أَنَا), ذَهَبَتْ (هِيَ), ذَهَبْنَ (هُنَّ)."},
+{n:62,h:"اِخْتَرْ = Pilih! (kosa kata Pelajaran 3).",r:"Pelajaran 3: Melancong dan Bersiar-siar",d:"Sederhana",q:"كَلِمَةُ «اِخْتَرْ» هِيَ ……",o:["فِعْلُ الْأَمْرِ","فِعْلُ الْمَاضِي","فِعْلُ الْمُضَارِعِ","اسْمُ الْإِشَارَةِ"],a:0,t:"Kata kerja (الفعل)",src:["PAT 2022 S29","PAT 2022 S11"],ex:"اِخْتَرْ (pilihlah) ialah suruhan, maka فِعْلُ الْأَمْرِ. Madhinya اِخْتَارَ, mudhari'nya يَخْتَارُ."},
+{n:63,h:"Pasar tani menjual hasil tanaman.",r:"Pelajaran 4: Pasar Tani (السوق الزراعي)",d:"Sederhana",q:"وَجَدْتُ فِي السُّوقِ الزِّرَاعِيِّ ……",o:["الدَّوَاءَ","الْخَضْرَوَاتِ","آلَةَ الرِّيَاضَةِ","آلَةَ الدِّرَاسَةِ"],a:1,t:"Pasar (السوق)",src:["PAT 2022 S13"],ex:"السُّوقُ الزِّرَاعِيُّ = pasar tani, tempat menjual hasil tanaman seperti الْخَضْرَوَاتُ (sayur-sayuran)."},
+{n:64,h:"Isim boleh menerima ال. Kata kerja tidak boleh.",r:"Tatabahasa: Jenis-jenis Isim",d:"Susah",q:"«الْفَلَّاحُ يَخْرُجُ إِلَى الْحُقُولِ فِي الصَّبَاحِ». اسْتَخْرِجِ الْأَسْمَاءَ: (i) يَخْرُجُ (ii) الْفَلَّاحُ (iii) الصَّبَاحِ (iv) الْحُقُولِ",o:["i و ii","i، ii و iii","i، iii و iv","ii، iii و iv"],a:3,t:"Jenis isim (أنواع الاسم)",src:["PAT 2022 S19"],ex:"الْفَلَّاحُ, الْحُقُولِ dan الصَّبَاحِ ialah isim (ada ال dan menerima baris akhir). يَخْرُجُ ialah fi'il mudhari'. Jawapan: ii, iii dan iv."},
+{n:65,h:"Asal huruf عَاشَ ialah ع ي ش. Huruf ي kembali muncul dalam mudhari'.",r:"Tatabahasa: Fi'il Mudhari' (perbuatan sedang berlaku)",d:"Susah",q:"حَوِّلِ الْفِعْلَ الْمَاضِي «عَاشَ» إِلَى الْفِعْلِ الْمُضَارِعِ (لِـ هُوَ).",o:["يَعِيشُ","يَعُوشُ","عَائِشٌ","عِشْ"],a:0,t:"Kata kerja (الفعل)",src:["PAT 2022 S50"],ex:"عَاشَ ialah fi'il berhuruf illah (asal ع ي ش). Alif di tengah kembali kepada ياء dalam mudhari' → يَعِيشُ. عَائِشٌ ialah isim fa'il, عِشْ ialah amar."}
+];
+
+/* ============ MUAMALAT ============ */
+const MU = [
+{n:1,h:"Lihat jadual Pengertian & Hukum Riba'. Makna dari segi Bahasa: 'terdapat … dan peningkatan'.",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Pengertian & Hukum Riba'",q:"Riba dari segi bahasa bermaksud …",o:["pertambahan","pengurangan","pertolongan","perolehan"],a:0,t:"Riba",src:["PAT 2024 S3","PPT 2026 S5"],ex:"Riba dari segi bahasa: pertambahan dan peningkatan. Dari segi syarak: tambahan atau lebihan daripada jual beli atau pinjaman yang diperoleh satu pihak daripada pihak lain tanpa cara yang wajar. Hukumnya HARAM."},
+{n:2,h:"Lihat baris Hukum dalam jadual Pengertian Riba' (ada tanda ✗ merah).",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Pengertian & Hukum Riba'",q:"Apakah hukum riba berdasarkan al-Quran, hadis dan ijmak ulama?",o:["Sunat","Harus","Makruh","Haram"],a:3,t:"Riba",src:["PAT 2024 S4","PAT 2025 S3","PPT 2026 S6"],ex:"Riba haram. Firman Allah: وَأَحَلَّ اللهُ الْبَيْعَ وَحَرَّمَ الرِّبَا (al-Baqarah: 275), dan ulama sepakat (ijmak) mengharamkannya."},
+{n:3,h:"Riba ada 2 bahagian utama. Satu berlaku dalam jual beli barang ribawi, satu lagi dalam pinjaman dan hutang.",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Jenis-jenis Riba",q:"Bahagian utama riba ialah …",o:["ربا الفضل dan ربا اليد","ربا الديون dan ربا البيوع","ربا القرض dan ربا النسيئة","ربا الفضل dan ربا الجاهلية"],a:1,t:"Riba",src:["PAT 2024 S5","PAT 2023 S35"],ex:"Mengikut Pelajaran 2, riba terbahagi kepada 2 bahagian utama: (1) ربا البيوع, iaitu riba dalam jual beli barang ribawi; (2) ربا الديون, iaitu riba dalam pinjaman dan hutang."},
+{n:4,h:"Senaraikan riba dalam jual beli barang ribawi: Riba al-Fadhl, Riba al-Nasi'ah, Riba al-Yad. Kira jumlahnya.",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Jenis-jenis Riba (Riba Al-Buyu')",q:"Berapakah jenis ربا البيوع menurut mazhab Syafie?",o:["Satu","Dua","Tiga","Lima"],a:2,t:"Riba",src:["PAT 2024 S6","PAT 2025 S4","PAT 2023 S7"],ex:"Riba al-Buyu' ada tiga jenis: ربا الفضل (pertukaran barang ribawi sejenis yang tidak sama berat atau kuantiti), ربا النسيئة (pertukaran secara bertangguh atau tidak serentak) dan ربا اليد (serahan lewat, di luar majlis akad)."},
+{n:5,h:"الدُّيُون bermaksud hutang-hutang. Lihat pengertian Riba Ad-Duyun.",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Riba Ad-Duyun",q:"Apakah riba yang melibatkan pinjaman dan hutang?",o:["ربا اليد","ربا البيوع","ربا الديون","ربا النسيئة"],a:2,t:"Riba",src:["PPT 2026 S8"],ex:"Riba Ad-Duyun melibatkan urusan pinjaman dan hutang, sama ada dalam bentuk mata wang atau manfaat barang. Ia juga melibatkan lebihan faedah kerana tempoh."},
+{n:6,h:"Lihat kotak Unsur-unsur Riba: (1) Niqat (mata wang) dan (2) …",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Unsur-unsur Riba",q:"Unsur riba terbahagi kepada … bahagian.",o:["dua","tiga","empat","lima"],a:0,t:"Riba",src:["PAT 2025 S27","PPT 2026 S7"],ex:"Unsur riba terbahagi kepada 2: (1) Niqat (mata wang), iaitu emas dan perak; (2) Makanan."},
+{n:7,h:"Niqat (نَقْد) ialah mata wang dinar dan dirham. Diperbuat daripada logam apa?",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Unsur Riba: Niqat",q:"Mata wang dalam unsur riba ialah …",o:["besi dan tembaga","emas dan perak","barang perhiasan","bahan makanan"],a:1,t:"Riba",src:["PAT 2025 S28","PPT 2026 S10","PAT 2023 S8"],ex:"Niqat ialah emas dan perak, sama ada dinar, dirham atau bijih yang belum dibentuk. Barang perhiasan dan logam lain seperti besi dan tembaga bukan unsur riba."},
+{n:8,h:"Makanan unsur riba ada 3 kumpulan: yang mengenyangkan, bersedap-sedapan dan dibuat ubat. Cari yang termasuk dalam kumpulan itu.",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Unsur Riba: Makanan",q:"Ciri makanan yang boleh menyebabkan riba ialah makanan yang …",o:["memabukkan","mengenyangkan","menggemukkan","memudaratkan"],a:1,t:"Riba",src:["PPT 2026 S11","PAT 2025 S29"],ex:"Makanan dalam unsur riba ada tiga kumpulan: (1) yang mengenyangkan seperti gandum, beras, barli, tamar dan jagung; (2) yang bersedap-sedapan seperti kismis dan buah tin; (3) yang dijadikan ubat seperti garam dan rempah. Antara pilihan, hanya \"mengenyangkan\" yang tepat."},
+{n:9,h:"Lihat Hikmah Pengajaran Riba nombor 2: 'Mengelakkan penindasan dan … terhadap orang miskin'.",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Hikmah Pengharaman Riba",q:"Pengharaman riba dapat menghilangkan penindasan dan …",o:["persaudaraan","kebencian","kezaliman","kasih sayang"],a:2,t:"Riba",src:["PPT 2026 S12","PAT 2025 S30","PPT 2026 S48"],ex:"Hikmah pengharaman riba: (1) elak pembeli menanggung hutang yang banyak; (2) elak penindasan dan kezaliman terhadap orang miskin; (3) elak sifat mementingkan diri; (4) elak urusan niaga yang menyalahi syarak; (5) elak jurang antara orang kaya dan miskin."},
+{n:10,h:"المرابحة berasal daripada رِبْح (untung). Ingat contoh baju RM100 dijual dengan untung RM20.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Bai' Al-Murabahah",q:"بيع المرابحة ialah jual beli dengan …",o:["harga modal serta keuntungan","harga lebih rendah daripada modal","harga modal tanpa untung","cara berkongsi barang"],a:0,t:"Jual beli",src:["PPT 2026 S27","PAT 2025 S2"],ex:"Bai' al-Murabahah ialah jual beli secara saling beruntung: penjual memberitahu harga asal dan kadar untungnya dalam akad. Contoh: \"Aku jual baju ini dengan harga yang aku beli RM100 beserta untung RM20.\" Hukumnya SAH jika kedua-dua pihak bersetuju."},
+{n:11,h:"Ingat contoh jam tangan yang dibeli RM100 tetapi dijual RM90.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Bai' Al-Muhattah",q:"Apakah istilah bagi jual beli secara harga rendah atau rugi?",o:["بيع التولية","بيع الإشراك","بيع المرابحة","بيع المحاطة"],a:3,t:"Jual beli",src:["PAT 2023 S3"],ex:"Bai' al-Muhattah ialah jual beli secara harga lebih rendah atau rugi. Contoh: jam tangan dibeli RM100 dijual RM90 dan dimaklumkan dalam akad. Biasanya untuk menghabiskan stok lama. Hukumnya SAH jika dipersetujui kedua-dua pihak."},
+{n:12,h:"Contoh lafaz Tauliah: 'Aku jual telefon bimbit ini kepada engkau dengan harga …'.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Bai' Al-Tauliah",q:"بيع التولية ialah jual beli dengan …",o:["menyebut harga asal (harga modal) sahaja","harga modal serta keuntungan","harga lebih rendah daripada modal","cara lelongan"],a:0,t:"Jual beli",src:["PAT 2025 S1","PAT 2024 S2"],ex:"Bai' al-Tauliah ialah jual beli secara beri kuasa atau lantik, iaitu akadnya hanya menyebut harga asal (harga modal) sahaja. Contoh lafaz: \"Aku jual telefon bimbit ini kepada engkau dengan harga modal.\" Hukumnya SAH sekiranya pembeli mengetahui harga asal barang itu."},
+{n:13,h:"Murabahah tergolong dalam jual beli yang DIBENARKAN. Lihat kotak Hukum.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Bai' Al-Murabahah",q:"Apakah hukum بيع المرابحة?",o:["Sah","Sunat","Haram","Wajib"],a:0,t:"Jual beli",src:["PAT 2025 S2"],ex:"Murabahah ialah jual beli amanah yang sah apabila harga modal dan keuntungan dinyatakan dengan jujur."},
+{n:14,h:"Lihat Pengertian Al-Salam (Bahasa). Dalam salam, bayaran dibuat lebih awal daripada barang diterima.",r:"Nota Muamalat D5 · Pelajaran 3: Al-Salam → Pengertian & Hukum Al-Salam",q:"Pengertian السلم dari segi bahasa ialah …",o:["meninggalkan","mendahulukan","menyelesaikan","melambatkan"],a:1,t:"Salam",src:["PAT 2024 S7","PPT 2026 S13","PAT 2023 S10"],ex:"Al-Salam dari segi bahasa: mendahulukan. Dari segi syarak: menjual sesuatu barang yang disifatkan dalam tanggungan seseorang, juga dinamakan jual beli secara tempahan atau pesanan. Hukumnya HARUS dengan syarat tertentu."},
+{n:15,h:"Rukun Al-Salam ada 4: Al-Aaqidaan, Al-Sighah, Ra'sulmaal dan Al-Muslamfih. Cari salah satunya.",r:"Nota Muamalat D5 · Pelajaran 3: Al-Salam → Rukun Al-Salam",q:"Satu daripada rukun السلم ialah …",o:["رأس المال","ijab sahaja","memberi hutang","Islam"],a:0,t:"Salam",src:["PAT 2023 S11","PPT 2026 S15","PPT 2026 S41-45"],ex:"Rukun salam: العاقدان (2 orang yang berakad), الصيغة (ijab dan qabul), رأس المال (modal) dan المسلم فيه (barang yang ditempah). 'Ijab sahaja' salah kerana sighah memerlukan ijab DAN qabul."},
+{n:16,h:"Lihat Pengertian Al-Qard (Bahasa). Ada gambar gunting.",r:"Nota Muamalat D5 · Pelajaran 4: Al-Qard → Pengertian Al-Qard",q:"Pengertian القرض dari segi bahasa ialah …",o:["pajak","potong","sambung","bersepakat"],a:1,t:"Qardh",src:["PAT 2023 S13","UPP2 2026 S1"],ex:"Al-Qardh dari segi bahasa: potong atau memotong. Dari segi syarak: memberi milik sesuatu benda kepada seseorang dengan syarat dikembalikan semula seumpamanya (memberi hutang)."},
+{n:17,h:"Hukum Al-Qard: asalnya … kerana termasuk perintah agama supaya bantu-membantu dalam kebaikan.",r:"Nota Muamalat D5 · Pelajaran 4: Al-Qard → Hukum Al-Qard",q:"Apakah asal hukum القرض?",o:["Sunat","Haram","Makruh","Wajib"],a:0,t:"Qardh",src:["UPP2 2026 S2","PAT 2023 S23"],ex:"Asal hukum Al-Qard ialah SUNAT kerana termasuk perintah agama supaya bantu-membantu dalam kebaikan. Hukumnya boleh berubah menjadi makruh, wajib atau haram mengikut keadaan."},
+{n:18,h:"تَبَرُّع = derma. Pemberi hutang mestilah orang yang layak menguruskan dan menderma hartanya.",r:"Nota Muamalat D5 · Pelajaran 4: Al-Qard → Rukun: Al-'Aqidan",q:"Orang yang sah menghutangkan harta dikenali sebagai …",o:["أهل التبرع","أهل مجلس","أهل مشاركة","أهل الديون"],a:0,t:"Qardh",src:["PAT 2024 S10","PAT 2025 S32"],ex:"Pemberi hutang mestilah أهل التبرع, iaitu orang yang sah menguruskan harta: baligh, berakal dan bukan mahjur (terhalang) seperti kanak-kanak, orang gila, orang pitam atau orang bodoh."},
+{n:19,h:"Fikirkan: jika kita sudah mampu membayar hutang tetapi sengaja menahan hak orang lain, adakah itu adil atau zalim dalam Islam?",r:"Nota Muamalat D5 · Pelajaran 4: Al-Qard → Hukum & Tanggungjawab Penghutang",q:"Apakah hukum orang yang mampu tetapi sengaja lambat membayar hutang?",o:["Makruh","Wajib","Haram","Sunat"],a:2,t:"Qardh",src:["PAT 2024 S8"],ex:"HARAM dan berdosa. Sabda Nabi ﷺ: «مَطْلُ الْغَنِيِّ ظُلْمٌ», iaitu menangguhkan bayaran hutang oleh orang yang mampu ialah satu kezaliman (Riwayat al-Bukhari dan Muslim). Kezaliman hukumnya haram. Jika penghutang benar-benar tidak mampu, pemberi hutang wajib memberi tempoh sehingga dia lapang (al-Baqarah: 280): «وَإِن كَانَ ذُو عُسْرَةٍ فَنَظِرَةٌ إِلَىٰ مَيْسَرَةٍ»."},
+{n:20,h:"Rukun Al-Wakalah ada 4: Al-Muwakkil, Al-W…, Al-Muwakkal Minhu dan Al-Sighah.",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Rukun Al-Wakalah",q:"Satu daripada rukun الوكالة ialah …",o:["العقل","السليم","التوكّل","الوكيل"],a:3,t:"Wakalah",src:["PAT 2024 S12","PAT 2023 S28","UPP2 2026 S3"],ex:"Rukun wakalah ada 4: الموكّل (pemberi wakalah), الوكيل (penerima wakalah), الموكّل منه (sesuatu yang diwakilkan) dan الصيغة (ijab dan qabul)."},
+{n:21,h:"Tauliah termasuk jual beli yang dibenarkan. Syaratnya pembeli mengetahui harga asal barang.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Bai' Al-Tauliah",q:"Hukum بيع التولية adalah sah.",o:["Betul","Salah"],a:0,t:"Jual beli",src:["PPT 2026 S21","PAT 2024 S21"],ex:"BETUL. Bai' al-Tauliah SAH sekiranya pembeli telah mengetahui harga asal barang tersebut."},
+{n:22,h:"Isyrak bermaksud kongsi atau sekutu. Ingat contoh 7 orang berkongsi membeli seekor lembu.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Bai' Al-Isyrak",q:"بيع الإشراك ialah jual beli secara kongsi.",o:["Betul","Salah"],a:0,t:"Jual beli",src:["PAT 2025 S21","PPT 2026 S36"],ex:"BETUL. Bai' al-Isyrak ialah jual beli secara kongsi atau sekutu, iaitu penjualan atau pembelian barang secara berkongsi pada harga tertentu. Contoh: 7 orang berkongsi membeli seekor lembu untuk korban. Hukumnya SAH jika dipersetujui rakan kongsi."},
+{n:23,h:"Semak Hukum Al-Qard: adakah asalnya harus, atau hukum lain?",r:"Nota Muamalat D5 · Pelajaran 4: Al-Qard → Hukum Al-Qard",q:"Asal hukum القرض adalah harus.",o:["Betul","Salah"],a:1,t:"Qardh",src:["PAT 2023 S23","UPP2 2026 S2"],ex:"SALAH. Asal hukum Al-Qard ialah SUNAT, bukan harus."},
+{n:24,h:"Syarat Al-'Aqidan: berakal, baligh dan dengan kehendak sendiri.",r:"Nota Muamalat D5 · Pelajaran 4: Al-Qard → Rukun: Al-'Aqidan",q:"Syarat orang yang memberi hutang mestilah seorang yang baligh.",o:["Betul","Salah"],a:0,t:"Qardh",src:["PAT 2023 S24","UPP2 2026 S16-17"],ex:"BETUL. Pemberi dan penerima hutang mestilah berakal dan baligh, bukan orang yang terhalang (kanak-kanak, gila, pitam, bodoh), serta dengan kehendak sendiri."},
+{n:25,h:"Lihat baris Hukum dalam jadual Pengertian & Hukum Al-Salam.",r:"Nota Muamalat D5 · Pelajaran 3: Al-Salam → Pengertian & Hukum Al-Salam",q:"Hukum السلم adalah haram.",o:["Betul","Salah"],a:1,t:"Salam",src:["PPT 2026 S25","PPT 2026 S49"],ex:"SALAH. Hukum Al-Salam ialah HARUS dengan syarat-syarat tertentu."},
+{n:26,h:"Lihat jadual Pengertian Al-Wakalah (Bahasa). Ada gambar tapak tangan.",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Pengertian Al-Wakalah",q:"Pengertian الوكالة dari segi bahasa",o:["upah","serahan","jual beli"],a:1,t:"Wakalah",src:["PAT 2023 S27","PAT 2024 S11"],ex:"Al-Wakalah dari segi bahasa: serahan, menyerahkan atau mewakilkan."},
+{n:27,h:"Untung dalam bahasa Arab ialah رِبْح.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Bai' Al-Murabahah",q:"Jual beli secara saling beruntung",o:["بيع المحاطة","بيع المرابحة","بيع الملامسة"],a:1,t:"Jual beli",src:["PPT 2026 S27"],ex:"بيع المرابحة ialah jual beli dengan keuntungan. المحاطة = rugi; الملامسة = jual beli dilarang."},
+{n:28,h:"Riba membawa kesan buruk seperti penindasan dan kezaliman.",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Hikmah Pengharaman Riba",q:"Sebab pengharaman riba",o:["mendatangkan mudarat","mendatangkan keuntungan","mendatangkan kesenangan"],a:0,t:"Riba",src:["PPT 2026 S28","PAT 2023 S34"],ex:"Ulama sepakat mengharamkan riba kerana ia mendatangkan mudarat (مضرة) kepada individu dan masyarakat."},
+{n:29,h:"Riba Ad-Duyun melibatkan pinjaman. Cari riba yang berlaku apabila pinjaman pokok perlu dibayar lebih (contoh RM1,000 jadi RM1,200).",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Riba Ad-Duyun (Riba Al-Qardh)",q:"Jenis ربا الديون",o:["ربا القرض","ربا الفضل","ربا البيوع"],a:0,t:"Riba",src:["PPT 2026 S29"],ex:"ربا القرض termasuk dalam Riba Ad-Duyun (contoh: pinjam RM1,000 dengan syarat bayar balik RM1,200; lebihan RM200 ialah riba). ربا الفضل ialah riba jual beli (Riba Al-Buyu'), manakala ربا البيوع ialah nama bahagian riba yang satu lagi."},
+{n:30,h:"Hukum asal ijarah sama seperti hukum asal jual beli (Al-Bai'), iaitu memberi kemudahan kepada manusia.",r:"Nota Muamalat D5 · Pelajaran 6: Al-Ijarah → Pengertian & Hukum Al-Ijarah",q:"Hukum الإجارة",o:["sunat","harus","haram"],a:1,t:"Ijarah",src:["PAT 2024 S30","PAT 2025 S15"],ex:"HARUS. Dalilnya Surah al-Qasas: 26 «يَا أَبَتِ اسْتَأْجِرْهُ ۖ إِنَّ خَيْرَ مَنِ اسْتَأْجَرْتَ الْقَوِيُّ الْأَمِينُ» dan Surah al-Talaq: 6 «فَإِنْ أَرْضَعْنَ لَكُمْ فَآتُوهُنَّ أُجُورَهُنَّ». Ijarah diharuskan untuk memenuhi keperluan masyarakat, selagi tidak melibatkan perkara haram (contohnya haram menyewa premis untuk judi atau maksiat)."},
+{n:31,h:"Lihat Jenis-jenis Al-Wakalah: Al-Mutlaqah dan Al-Muqaiyadah. Kira jumlahnya.",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Jenis-jenis Al-Wakalah",q:"Wakalah terbahagi kepada … jenis.",o:["dua","tiga","empat","lima"],a:0,t:"Wakalah",src:["PAT 2025 S11","PAT 2024 S29","PPT 2026 S39"],ex:"Wakalah ada 2 jenis: المطلقة (serahan secara umum tanpa syarat) dan المقيدة (serahan dengan syarat tertentu)."},
+{n:32,h:"Lihat baris Hukum dalam jadual Pengertian Al-Wakalah.",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Pengertian Al-Wakalah",q:"Hukum الوكالة adalah …",o:["sunat","wajib","harus","makruh"],a:2,t:"Wakalah",src:["PAT 2025 S10","UPP2 2026 S13"],ex:"Hukum wakalah ialah HARUS dengan syarat-syarat tertentu."},
+{n:33,h:"Lihat Hukum Membatalkan Akad Wakalah, nombor 1.",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Hukum Membatalkan Akad Wakalah",q:"Hukum membatalkan akad الوكالة adalah …",o:["sunat","haram","harus","makruh"],a:2,t:"Wakalah",src:["PAT 2023 S16","PAT 2024 S14","UPP2 2026 S10"],ex:"Harus bagi kedua-dua pihak membatalkan akad wakalah, sama ada ketika hadir atau ghaib."},
+{n:34,h:"مُطْلَقَة bermaksud bebas: serahan secara umum tanpa meletakkan apa-apa …",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Jenis-jenis Al-Wakalah",q:"الوكالة المطلقة ialah serahan …",o:["umum tanpa syarat","umum bersyarat","yang ditetapkan syarat","barang kepada penjual"],a:0,t:"Wakalah",src:["UPP2 2026 S14"],ex:"Al-Mutlaqah ialah serahan secara umum tanpa meletakkan apa-apa syarat."},
+{n:35,h:"مُقَيَّدَة bermaksud terikat: serahan yang ditetapkan …",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Jenis-jenis Al-Wakalah",q:"الوكالة المقيدة ialah serahan yang …",o:["secara umum","ditetapkan syarat","tanpa syarat","tidak sah"],a:1,t:"Wakalah",src:["PAT 2024 S13"],ex:"Al-Muqaiyadah ialah serahan yang ditetapkan syarat-syarat tertentu."},
+{n:36,h:"Wakalah terbatal jika salah seorang keluar daripada ahli tasarruf (tidak lagi layak mengurus). Fikirkan tentang keadaan akal.",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Hukum Membatalkan Akad Wakalah",q:"Wakalah terbatal apabila salah seorang yang berakad …",o:["terlupa","menjadi gila","saling bekerjasama","pergi bermusafir"],a:1,t:"Wakalah",src:["PAT 2025 S12","PAT 2024 S39"],ex:"Wakalah terbatal jika salah seorang keluar daripada ahli tasarruf (contohnya menjadi gila), jika muwakkil hilang milik atau manfaat barang, atau jika muwakkil mengingkari wakalah tanpa sebab. Wakalah TIDAK terbatal kerana terlupa."},
+{n:37,h:"Lihat Tanggungjawab Al-Wakil, nombor 1 (ada gambar perisai).",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Tanggungjawab Al-Wakil",q:"Tanggungjawab الوكيل ialah …",o:["khianat","tidak amanah","memegang amanah","berjual beli untuk diri sendiri"],a:2,t:"Wakalah",src:["UPP2 2026 S5","PAT 2025 S40","PAT 2024 S34"],ex:"Tanggungjawab wakil: (1) pemegang amanah; (2) bertanggungjawab dhaman (ganti) jika barang hilang kerana taqsir (cuai) atau lupa; (3) bertanggungjawab atas hukum akad jual beli barang yang diwakilkan."},
+{n:38,h:"Rukun Al-Qard ada 3: Al-'Aqidan, Al-Sighah dan Al-Ma'qud …",r:"Nota Muamalat D5 · Pelajaran 4: Al-Qard → Rukun Al-Qard",q:"Rukun القرض ialah العاقدان, الصيغة dan …",o:["المعقود عليه","رأس المال","المسلم فيه","الأجرة"],a:0,t:"Qardh",src:["UPP2 2026 S11","UPP2 2026 S18-20","PAT 2024 S9"],ex:"Rukun al-Qardh ada 3: (1) العاقدان, iaitu pemberi hutang (muqridh) dan penerima hutang (muqtaridh); (2) المعقود عليه, iaitu barang yang dihutangi; (3) الصيغة, iaitu lafaz ijab dan qabul."},
+{n:39,h:"Lihat Pengertian Al-Ijarah (Bahasa). Ada gambar duit syiling.",r:"Nota Muamalat D5 · Pelajaran 6: Al-Ijarah → Pengertian Al-Ijarah",q:"Pengertian الإجارة dari segi bahasa ialah …",o:["upah","sewa rumah","jual","hadiah"],a:0,t:"Ijarah",src:["PAT 2025 S14","UPP2 2026 S15"],ex:"Al-Ijarah dari segi bahasa: bayaran atau upah. Dari segi syarak: memberi bayaran sebagai upah kepada orang yang melakukan kerja bermanfaat dalam tempoh dan dengan syarat tertentu."},
+{n:40,h:"Rukun ijarah yang bernama 'Ujrah' bermaksud bayaran atau upah. Cari perkataan Arab yang sama.",r:"Nota Muamalat D5 · Pelajaran 6: Al-Ijarah → Rukun Al-Ijarah (Ujrah)",q:"Bayaran yang diberikan sebagai balasan jasa dalam ijarah ialah …",o:["الإجارة","الأجرة","مستأجر","الصيغة"],a:1,t:"Ijarah",src:["PAT 2024 S16","PPT 2026 S40"],ex:"الأجرة (Ujrah) ialah upah kerana memperoleh manfaat, atau bayaran sebagai balasan jasa tenaga. الإجارة ialah nama akad, مستأجر ialah orang yang menyewa atau menerima upah, dan الصيغة ialah lafaz ijab dan qabul."},
+{n:41,h:"Rukun Al-Ju'alah ada 5: Al-Jaa'il, Al-'Aamil, Al-'Aamal, Al-'Ardhu, Al-Sighah. Cari yang BUKAN rukun.",r:"Nota Muamalat D5 · Pelajaran 7: Al-Ju'alah → Rukun Al-Ju'alah",q:"Berikut ialah rukun الجعالة KECUALI …",o:["العمل","العامل","الجاعل","الوكيل"],a:3,t:"Ju'alah",src:["PAT 2025 S18","PAT 2024 S18"],ex:"Rukun ju'alah: الجاعل (orang yang menawarkan upah), العامل (orang yang melakukan tugas), العمل (pekerjaan), العوض (upah atau ganjaran) dan الصيغة (ijab dan qabul). الوكيل ialah rukun wakalah."},
+{n:42,h:"Ju'alah dari segi bahasa bermaksud janji hadiah. Hadiah dijanjikan kepada SESIAPA SAHAJA yang berjaya melakukan tugas itu.",r:"Nota Muamalat D5 · Pelajaran 7: Al-Ju'alah → Pengertian Al-Ju'alah",q:"Ali mengumumkan hadiah RM50 kepada sesiapa yang menjumpai beg tangannya yang hilang. Akad ini ialah …",o:["الإجارة","الجعالة","الوكالة","القرض"],a:1,t:"Ju'alah",src:["PAT 2025 S49","PPT 2026 S50"],ex:"Ju'alah (bahasa: janji hadiah) ialah perjanjian imbalan daripada pihak pertama kepada sesiapa yang melaksanakan tugas untuknya. Akad sah walaupun pekerja tidak ditentukan, dan upah diberi selepas kerja selesai."},
+{n:43,h:"Lihat jadual Perbezaan antara Akad Al-Ijarah dan Al-Ju'alah. Bila pekerja ju'alah mendapat saguhati?",r:"Nota Muamalat D5 · Pelajaran 7: Al-Ju'alah → Perbezaan Al-Ijarah dan Al-Ju'alah",q:"Apakah perbezaan الإجارة dan الجعالة?",o:["Ijarah tidak ada upah, ju'alah ada upah","Ju'alah sah walaupun pekerja tidak ditentukan dan saguhati diberi selepas kerja selesai; ijarah tidak sah jika pekerja tidak ditentukan","Kedua-duanya haram","Ijarah hanya untuk barang hilang"],a:1,t:"Ju'alah",src:["PAT 2025 S50","PAT 2023 S50"],ex:"Ijarah: tidak sah jika pekerja tidak ditentukan, perlu persetujuan pekerja, dan pemilik berhak meminta bayaran pendahuluan. Ju'alah: sah walaupun pekerja tidak ditentukan, tidak perlu persetujuan pekerja, dan pekerja hanya berhak mendapat saguhati selepas kerja selesai."},
+{n:44,h:"Hikmah Al-Ijarah: ketenteraman, nafkah keluarga, hajat masyarakat dan memudahkan kehidupan. Cari yang BUKAN hikmah.",r:"Nota Muamalat D5 · Pelajaran 6: Al-Ijarah → Hikmah Al-Ijarah",q:"Berikut ialah hikmah الإجارة KECUALI …",o:["membina ketenteraman","memenuhi nafkah keluarga","memudahkan kehidupan","merosakkan jiwa"],a:3,t:"Ijarah",src:["PAT 2024 S17","PAT 2025 S17","PAT 2023 S18"],ex:"Hikmah ijarah: (1) membina ketenteraman dan kebahagiaan; (2) memenuhi nafkah keluarga; (3) memenuhi hajat dan keperluan masyarakat; (4) memudahkan kehidupan. Merosakkan jiwa bukan hikmah."},
+{n:45,h:"Pekerjaan yang diberi upah mestilah yang mubah (harus), bukan yang haram.",r:"Nota Muamalat D5 · Pelajaran 6: Al-Ijarah → Rukun Al-Ju'alah (Al-'Aamal)",q:"Contoh pekerjaan yang haram dan tidak sah diambil upah ialah …",o:["berniaga sayur","berjudi","mengajar al-Quran","menjahit baju"],a:1,t:"Ijarah",src:["PAT 2023 S19","PAT 2025 S19"],ex:"Pekerjaan yang diupah mestilah mubah (harus), bukan yang haram seperti berjudi, zina, dukun atau menzalimi orang. Berniaga sayur, mengajar al-Quran dan menjahit baju ialah pekerjaan halal."},
+{n:46,h:"Lihat Hikmah Al-Qard nombor 2: mengukuhkan hubungan … dalam Islam.",r:"Nota Muamalat D5 · Pelajaran 4: Al-Qard → Hikmah Al-Qard",q:"Hikmah القرض ialah …",o:["mengambil untung berlebihan","menindas peminjam","mengeratkan persaudaraan dan membantu orang yang memerlukan","menggalakkan pembaziran"],a:2,t:"Qardh",src:["PAT 2023 S26","UPP2 2026 S22"],ex:"Hikmah Al-Qard: (1) memupuk amalan tolong-menolong dalam kebaikan; (2) mengukuhkan hubungan persaudaraan dengan membantu orang yang memerlukan; (3) bekerjasama menyelesaikan masalah."},
+{n:47,h:"Ingat contohnya: gores dan menang, tikam nombor, cabutan nombor bertuah.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Jual Beli Dilarang: Munabadzah",q:"Jual beli المنابذة ialah jual beli secara …",o:["sentuhan tanpa melihat barang","meneka atau menikam","menawar harga tinggi untuk menipu","membiarkan susu haiwan tidak diperah"],a:1,t:"Jual beli dilarang",src:["PPT 2026 S3","PAT 2023 S4","PPT 2026 S26"],ex:"Munabazah ialah jual beli secara meneka atau menikam, contohnya gores dan menang, tikam nombor dan cabutan nombor bertuah yang mewajibkan pembelian. Hukumnya HARAM lagi TIDAK SAH kerana ada unsur perjudian dan barang tidak jelas. Pilihan lain: sentuhan = Mulamasah, menawar harga tinggi = Najsy, susu tidak diperah = Tasriyah."},
+{n:48,h:"المُلامَسَة berasal daripada لَمْس (sentuh). Ingat contoh meraba barang dalam bilik gelap.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Jual Beli Dilarang: Mulamasah",q:"Jual beli dengan menyentuh barang sebagai tanda akad tanpa melihatnya dinamakan …",o:["بيع الملامسة","بيع التولية","بيع المرابحة","بيع الإشراك"],a:0,t:"Jual beli dilarang",src:["PPT 2026 S27","PAT 2023 S4"],ex:"Mulamasah ialah jual beli secara sentuhan, dan pembeli tidak dapat melihat barang yang dijual (contohnya memasukkan tangan ke dalam kotak). Hukumnya HARAM lagi TIDAK SAH."},
+{n:49,h:"Biasanya berlaku dalam jual beli lelong. Orang tertentu menawar harga tinggi bukan untuk dirinya sendiri.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Jual Beli Dilarang: Najsy",q:"Jual beli النجش ialah …",o:["menawar harga tinggi tanpa niat membeli untuk memperdaya pembeli lain","menjual dengan harga modal","menjual secara berkongsi","menjual dengan harga rugi"],a:0,t:"Jual beli dilarang",src:["PAT 2023 S6"],ex:"Najsy ialah jual beli yang memperdaya pelanggan: orang tertentu menawar harga tinggi bukan untuk dirinya, supaya pembeli lain membeli dengan harga tinggi. Hukumnya SAH kerana rukun dan syarat sempurna, tetapi HARAM kerana ada unsur berselindung dan menipu."},
+{n:50,h:"Lihat Hikmah Jual Beli Al-Salam nombor 1 (ada gambar perisai).",r:"Nota Muamalat D5 · Pelajaran 3: Al-Salam → Hikmah Jual Beli Al-Salam",q:"Hikmah jual beli السلم ialah …",o:["menindas penjual","dapat mengawal mutu barang","menaikkan harga barang","menghalang perniagaan"],a:1,t:"Salam",src:["PPT 2026 S20","PAT 2024 S47"],ex:"Hikmah jual beli salam: (1) dapat mengawal mutu barang, (2) memberi kepuasan kepada penjual dan pembeli, (3) memberi peluang berunding mengikut cara yang diizinkan syarak, (4) memberi peluang kepada penjual menyediakan barang mengikut kehendak pembeli."},
+{n:51,h:"Niqat (mata wang) ialah emas dan …",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Unsur Riba: Niqat",d:"Senang",q:"Mata wang dalam unsur riba ialah …",o:["emas dan suasa","emas dan gangsa","emas dan perak","besi dan tembaga"],a:2,t:"Riba",src:["PAT 2022 S28","PAT 2022 S47"],ex:"Mata wang dalam unsur riba ialah emas dan perak (dinar dan dirham)."},
+{n:52,h:"Syarat Al-Aaqidaan nombor 3: dilakukan secara suka rela tanpa …",r:"Nota Muamalat D5 · Pelajaran 4: Al-Qard → Rukun: Al-Aaqidaan",d:"Senang",q:"Syarat bagi dua orang yang berakad ialah …",o:["dipaksa","dihalang berakad","dengan kehendak sendiri","tidak berakal"],a:2,t:"Qardh",src:["PAT 2022 S12"],ex:"Syarat 2 orang yang berakad: baligh, berakal, dan dilakukan secara suka rela tanpa paksaan (kehendak sendiri)."},
+{n:53,h:"Wakalah dari segi syarak: menyerahkan atau mewakilkan sesuatu pekerjaan kepada orang lain.",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Pengertian Al-Wakalah",d:"Senang",q:"Menyerahkan sesuatu pekerjaan kepada orang lain ialah pengertian …",o:["السلم","البيع","الوكالة","الربا"],a:2,t:"Wakalah",src:["PAT 2022 S13"],ex:"Wakalah (syarak): menyerahkan atau mewakilkan sesuatu pekerjaan yang boleh dilakukan sendiri kepada orang lain semasa hidupnya."},
+{n:54,h:"Ingat syarat perkara yang diwakilkan: mestilah sesuatu yang boleh dilakukan oleh orang lain. Bolehkah solat, puasa atau lafaz sumpah dibuat oleh wakil?",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Syarat Al-Muwakkal Minhu (sesuatu yang diwakilkan)",d:"Senang",q:"Perkara yang TIDAK sah diwakilkan ialah …",o:["hibah","jual beli","bersumpah","pernikahan"],a:2,t:"Wakalah",src:["PAT 2022 S14"],ex:"Bersumpah (الأيمان) tidak sah diwakilkan. Kaedah Mazhab Syafie: setiap perkara yang harus diuruskan sendiri harus diwakilkan, KECUALI ibadah badaniyah (solat, puasa), sumpah dan penyaksian. Sumpah ialah ikrar peribadi kepada Allah, jadi mesti dilafazkan sendiri. Hibah, jual beli dan pernikahan sah diwakilkan."},
+{n:55,h:"Lihat Syarat Al-Muwakkil. Contoh yang TIDAK sah ialah kanak-kanak, orang gila dan orang pitam.",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Syarat Al-Muwakkil",d:"Senang",q:"Orang yang sah menjadi الموكّل ialah …",o:["kanak-kanak","orang gila","orang pitam","orang baligh yang berakal"],a:3,t:"Wakalah",src:["PAT 2022 S15"],ex:"Al-Muwakkil mestilah sah mengerjakan perkara yang diwakilkan. Kanak-kanak, orang gila dan orang pitam tidak sah menjadi muwakkil."},
+{n:56,h:"Hukum Al-Salam: HARUS dengan syarat tertentu. Jadi, akad itu …",r:"Nota Muamalat D5 · Pelajaran 3: Al-Salam → Pengertian & Hukum Al-Salam",d:"Senang",q:"Apakah hukum akad tempahan (السلم) yang cukup rukun dan syaratnya?",o:["Sah","Sunat","Wajib","Tidak sah"],a:0,t:"Salam",src:["PAT 2022 S8"],ex:"Akad salam SAH apabila cukup rukun dan syaratnya, kerana hukumnya HARUS dengan syarat-syarat tertentu."},
+{n:57,h:"Syarat Al-Aaqidaan nombor 1 ialah baligh. Adakah kanak-kanak sudah baligh?",r:"Nota Muamalat D5 · Pelajaran 3: Al-Salam → Rukun: Al-Aaqidaan",d:"Senang",q:"Kanak-kanak tidak sah melakukan akad tempahan.",o:["Betul","Salah"],a:0,t:"Salam",src:["PAT 2022 S25"],ex:"BETUL. Akad tempahan oleh kanak-kanak tidak sah kerana syarat Al-Aaqidaan ialah baligh."},
+{n:58,h:"الدُّيُون bermaksud hutang-hutang.",r:"Nota Muamalat D5 · Pelajaran 2: Al-Riba' → Riba Ad-Duyun",d:"Senang",q:"ربا الديون ialah riba dalam urusan …",o:["jual beli cengkeram","jual beli secara kongsi","jual beli yang tidak sah","pinjaman dan hutang"],a:3,t:"Riba",src:["PAT 2022 S5"],ex:"Riba Ad-Duyun melibatkan urusan pinjaman dan hutang."},
+{n:59,h:"Syarat Al-Muslam Fih nombor 2: diketahui jenis, sifat, …, kualiti dan kuantiti.",r:"Nota Muamalat D5 · Pelajaran 3: Al-Salam → Syarat Al-Muslam Fih",d:"Sederhana",q:"Barang tempahan (المسلم فيه) perlu ditentukan dari segi …",o:["kain","mewah","unggul","ukuran"],a:3,t:"Salam",src:["PAT 2022 S9"],ex:"Barang tempahan mesti diketahui jenis, sifat, ukuran, kualiti dan kuantiti supaya dapat dibezakan daripada barang lain."},
+{n:60,h:"Muhattah bermaksud jual beli dengan harga lebih rendah (rugi). Cari nama lain yang juga bermaksud merendahkan, daripada kata وَضَعَ.",r:"Nota Muamalat D5 · Pelajaran 1: Al-Bai' (Jual Beli) → Bai' Al-Muhattah",d:"Sederhana",q:"Apakah nama lain bagi بيع المحاطة?",o:["بيع التولية","بيع الوضيعة","بيع المرابحة","بيع الإشراك"],a:1,t:"Jual beli",src:["PAT 2022 S3"],ex:"بيع الوضيعة ialah nama lain bagi بيع المحاطة (juga disebut بيع الحطيطة): jual beli dengan menyebut harga modal, kemudian dijual dengan harga lebih rendah. Contohnya, barang dibeli RM100 dan dijual RM90. الوضيعة berasal daripada وَضَعَ (merendahkan) dan المحاطة daripada حَطَّ (menggugurkan atau mengurangkan). Ia salah satu daripada tiga Buyu' al-Amanah, bersama Murabahah dan Tauliah."},
+{n:61,h:"Lihat Hikmah Diharuskan Wakalah nombor 1: menyempurnakan … orang yang tidak berkemahiran.",r:"Nota Muamalat D5 · Pelajaran 5: Al-Wakalah → Hikmah Diharuskan Wakalah",d:"Sederhana",q:"Hikmah diharuskan الوكالة ialah …",o:["mendapat simpati","memenuhi hajat","menzalimi orang lain","memutuskan silaturrahim"],a:1,t:"Wakalah",src:["PAT 2022 S16"],ex:"Hikmah wakalah: (1) menyempurnakan hajat orang yang tidak berkemahiran; (2) memudahkan urusan muamalat; (3) menghidupkan keharmonian yang berterusan."},
+{n:62,h:"Syarat barang tempahan: jenis, sifat, ukuran dan kuantiti diketahui, dan masa serahan ditetapkan.",r:"Nota Muamalat D5 · Pelajaran 3: Al-Salam → Syarat Al-Muslam Fih",d:"Sederhana",q:"Apakah pesanan Nabi Muhammad ﷺ kepada orang yang menempah sesuatu barang?",o:["Barang tidak perlu ditimbang","Sukatan, timbangan dan tempohnya diketahui","Sukatan tidak perlu tepat","Tempoh tidak perlu ditetapkan"],a:1,t:"Salam",src:["PAT 2022 S7"],ex:"Hadis: مَنْ أَسْلَفَ فِي شَيْءٍ فَلْيُسْلِفْ فِي كَيْلٍ مَعْلُومٍ وَوَزْنٍ مَعْلُومٍ إِلَى أَجَلٍ مَعْلُومٍ (sukatan, timbangan dan tempoh yang diketahui). Ini selaras dengan Syarat Al-Muslam Fih nombor 2 dan 6."},
+{n:63,h:"Rukun Al-Ijarah: Mu'jir, Musta'jir, Ujrah, Manfaat dan Sighah. Cari yang BUKAN rukun.",r:"Nota Muamalat D5 · Pelajaran 6: Al-Ijarah → Rukun Al-Ijarah",d:"Sederhana",q:"Berikut ialah rukun الإجارة KECUALI …",o:["manfaat","pengupah","bayaran atau upah","barang yang ditempah"],a:3,t:"Ijarah",src:["PAT 2022 S17"],ex:"Rukun ijarah: مؤجر (orang yang menyewakan atau pengupah), مستأجر (orang yang menerima sewa atau upah), أجرة (upah), منفعة (manfaat) dan الصيغة. Barang yang ditempah (المسلم فيه) ialah rukun salam."},
+{n:64,h:"العامل ialah orang yang melakukan tugas. Apakah haknya selepas kerja selesai?",r:"Nota Muamalat D5 · Pelajaran 7: Al-Ju'alah → Rukun Al-Ju'alah (Al-'Aamil)",d:"Susah",q:"Manakah pernyataan yang berkaitan dengan العامل? (i) upah (ii) pengupah (iii) orang yang melakukan kerja (iv) orang yang berhak mendapat upah",o:["i dan ii","ii dan iv","ii dan iii","iii dan iv"],a:3,t:"Ju'alah",src:["PAT 2022 S20"],ex:"العامل ialah orang yang melakukan tugas dan berhak mendapat saguhati selepas kerja selesai. Upah dinamakan العوض dan pengupah dinamakan الجاعل."},
+{n:65,h:"Rukun ju'alah: Al-Jaa'il, Al-'Aamil, Al-'Aamal, Al-'Ardhu dan Al-Sighah.",r:"Nota Muamalat D5 · Pelajaran 7: Al-Ju'alah → Rukun Al-Ju'alah",d:"Susah",q:"Berikut ialah rukun الجعالة: (i) الموكّل (ii) الجاعل (iii) العامل (iv) رأس المال",o:["i dan ii","ii dan iv","ii dan iii","iii dan iv"],a:2,t:"Ju'alah",src:["PAT 2022 S19"],ex:"الجاعل (orang yang menawarkan upah) dan العامل (orang yang melakukan tugas) ialah rukun ju'alah. الموكّل ialah rukun wakalah dan رأس المال ialah rukun salam."}
+];
+
+const SUBJ = {
+  ar:{key:"ar",name:"Bahasa Arab",arname:"اللُّغَةُ الْعَرَبِيَّةُ",data:AR,rtl:true,letters:["أ","ب","ج","د"]},
+  mu:{key:"mu",name:"Muamalat",arname:"مُعَامَلَات",data:MU,rtl:false,letters:["ا","ب","ت","ث"]}
+};
+const STORE="d5bank.v1";
+
+/* ============ UTIL ============ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const arWrap=s=>esc(s).replace(/([؀-ۿﷰ-﷿][؀-ۿﷰ-﷿ً-ٟ\s،]*[؀-ۿﷰ-﷿ً-ٟ])|([؀-ۿ])/g,m=>`<span class="ar" dir="rtl">${m}</span>`);
+const secOf=n=>SECTIONS.find(s=>n>=s.from&&n<=s.to);
+const paperOf=src=>Object.keys(PAPERS).find(p=>src.startsWith(p));
+function letters(sub,q){return q.o.length===2?["",""]:SUBJ[sub].letters}
+function load(){try{return JSON.parse(localStorage.getItem(STORE))||{attempts:[]}}catch(e){return{attempts:[]}}}
+function save(d){try{localStorage.setItem(STORE,JSON.stringify(d))}catch(e){}}
+
+/* ============ STATE ============ */
+const st={hints:{},mode:"murid",sub:"ar",answers:{},submitted:false,name:"",auth:false,gsub:"ar",fPaper:"",fTopic:"",fLv:"",fText:""};
+try{st.auth=sessionStorage.getItem("d5auth")==="1"}catch(e){}
+
+/* ============ LATIHAN MURID ============ */
+function renderMurid(){
+  const S=SUBJ[st.sub];
+  let h=`<div><h1>Latihan Darjah 5</h1><p class="lead">Pilih subjek, jawab 65 soalan (50 soalan utama + 15 soalan ekstra PAT 2022), kemudian hantar untuk melihat markah. Setiap soalan ditag dengan kertas sebenar. Tekan "Tunjuk petunjuk" jika perlukan bantuan; petunjuk diambil daripada nota ringkas Darjah 5.</p></div>
+  <div class="subjects">${Object.values(SUBJ).map(s=>`<button class="subj" data-sub="${s.key}" aria-pressed="${s.key===st.sub}"><span class="ttl"><b>${s.name}</b><span class="arname" dir="rtl">${s.arname}</span></span><small>65 soalan · 6 bahagian · rujukan PAT 2022–2025, PPT &amp; UPP2 2026</small></button>`).join("")}</div>
+  <div class="row"><label for="nm" class="muted">Nama murid</label><input id="nm" type="text" placeholder="cth: Ahmad bin Ali" value="${esc(st.name)}" style="flex:1;max-width:340px"></div>`;
+  if(st.submitted){
+    const r=scoreOf(st.sub,st.answers);
+    h+=`<div class="score"><div class="big">${r.c}/${r.t}</div><div><b>${r.pct}% · ${grade(r.pct)}</b><div class="muted">Soalan bertanda merah perlu diulang kaji. Jawapan penuh dan penerangan ada dalam Dashboard Muallim.</div></div></div>`;
+  }
+  SECTIONS.forEach(sec=>{
+    h+=`<div class="sec-head"><h2>${sec.name}</h2><span>${sec.note}</span></div>`;
+    S.data.filter(q=>q.n>=sec.from&&q.n<=sec.to).forEach(q=>h+=qCard(st.sub,q,false));
+  });
+  $("#view-murid").innerHTML=h;
+  updBar();
+}
+function qCard(sub,q,showKey){
+  const S=SUBJ[sub],L=letters(sub,q),pick=st.answers[q.n];
+  let cls="q";
+  if(!showKey&&st.submitted&&st.sub===sub) cls+=pick===q.a?" ok":" bad";
+  const mark=(!showKey&&st.submitted)?(pick===q.a?`<span class="mark ok">✓ Betul</span>`:`<span class="mark bad">✗ ${pick===undefined?"Tidak dijawab":"Salah"}</span>`):"";
+  return `<article class="${cls}" id="${showKey?"k":"q"}${sub}${q.n}">
+   <div class="qmeta"><span class="num">${q.n}</span>${q.src.map(s=>`<span class="chip" title="${esc(PAPERS[paperOf(s)]||"")}">${esc(s)}</span>`).join("")}<span class="chip topic">${arWrap(q.t)}</span>${q.d?`<span class="chip lv lv-${q.d}">Aras: ${q.d}</span>`:""}${mark}</div>
+   <div class="qtext ${S.rtl?"rtl":""}" ${S.rtl?'dir="rtl"':""}>${S.rtl?esc(q.q):arWrap(q.q)}</div>
+   <div class="opts ${S.rtl?"rtl":""}">${q.o.map((o,i)=>`<button class="opt${showKey&&i===q.a?" key":""}" data-q="${q.n}" data-i="${i}" ${showKey||st.submitted?"disabled":""} aria-pressed="${!showKey&&pick===i}">${L[i]?`<span class="lt">${L[i]}</span>`:""}<span class="tx">${S.rtl?esc(o):arWrap(o)}</span></button>`).join("")}</div>
+   ${!showKey?`<div class="hint"><button class="hintbtn" data-hint="${sub}${q.n}" aria-expanded="${!!st.hints[sub+q.n]}">${st.hints[sub+q.n]?"Sembunyi petunjuk":"Tunjuk petunjuk"}</button><div class="hinttx" ${st.hints[sub+q.n]?"":"hidden"}>${arWrap(q.h)}</div></div>`:""}
+   ${showKey?`<div class="explain"><b>Jawapan: ${L[q.a]?L[q.a]+" · ":""}</b>${arWrap(q.o[q.a])}<br>${arWrap(q.ex)}<div class="ref"><b>Petunjuk murid:</b> ${arWrap(q.h)}</div><div class="ref"><b>Rujukan nota / buku teks D5:</b> ${arWrap(q.r)}</div></div>`:""}
+  </article>`;
+}
+function scoreOf(sub,ans){const d=SUBJ[sub].data;const c=d.filter(q=>ans[q.n]===q.a).length;return{c,t:d.length,pct:Math.round(c/d.length*100)}}
+function grade(p){return p>=85?"Cemerlang":p>=70?"Kepujian":p>=50?"Lulus":"Perlu bimbingan"}
+function updBar(){
+  const show=st.mode==="murid";$("#bar").hidden=!show;if(!show)return;
+  const n=Object.keys(st.answers).length;
+  const T=SUBJ[st.sub].data.length;$("#prog").textContent=st.submitted?`Markah: ${scoreOf(st.sub,st.answers).c}/${T}`:`Dijawab ${n}/${T}`;
+  $("#btn-submit").hidden=st.submitted;
+}
+$("#view-murid").addEventListener("click",e=>{
+  const sb=e.target.closest(".subj");
+  if(sb){if(sb.dataset.sub!==st.sub){st.sub=sb.dataset.sub;st.answers={};st.hints={};st.submitted=false;renderMurid();}return;}
+  const hb=e.target.closest(".hintbtn");
+  if(hb){const k=hb.dataset.hint;st.hints[k]=!st.hints[k];hb.setAttribute("aria-expanded",st.hints[k]);hb.textContent=st.hints[k]?"Sembunyi petunjuk":"Tunjuk petunjuk";hb.nextElementSibling.hidden=!st.hints[k];return;}
+  const op=e.target.closest(".opt");
+  if(op&&!st.submitted){st.answers[+op.dataset.q]=+op.dataset.i;
+    op.parentElement.querySelectorAll(".opt").forEach(b=>b.setAttribute("aria-pressed",b===op));updBar();}
+});
+$("#view-murid").addEventListener("input",e=>{if(e.target.id==="nm")st.name=e.target.value});
+$("#btn-submit").addEventListener("click",()=>{
+  const n=Object.keys(st.answers).length;
+  const T=SUBJ[st.sub].data.length;if(n<T&&!$("#btn-submit").dataset.warn){$("#btn-submit").dataset.warn="1";$("#btn-submit").textContent=`${T-n} belum dijawab. Tekan lagi untuk hantar`;return;}
+  delete $("#btn-submit").dataset.warn;$("#btn-submit").textContent="Hantar & semak markah";
+  st.submitted=true;const r=scoreOf(st.sub,st.answers);
+  const d=load();d.attempts.unshift({name:st.name.trim()||"Tanpa nama",sub:st.sub,score:r.c,total:r.t,pct:r.pct,ans:{...st.answers},at:new Date().toISOString()});d.attempts=d.attempts.slice(0,300);save(d);
+  renderMurid();window.scrollTo({top:0,behavior:"smooth"});
+});
+$("#btn-reset").addEventListener("click",()=>{st.answers={};st.hints={};st.submitted=false;delete $("#btn-submit").dataset.warn;$("#btn-submit").textContent="Hantar & semak markah";renderMurid();});
+
+/* ============ DASHBOARD MUALLIM ============ */
+function renderGuru(){
+  const V=$("#view-guru");
+  if(!st.auth){
+    V.innerHTML=`<div class="panel login"><h1>Dashboard Muallim</h1><p class="lead">Log masuk untuk melihat skema jawapan, penerangan dan rekod murid.</p>
+    <form id="lf" autocomplete="off"><label for="lu">ID</label><input id="lu" type="text" required><label for="lp">Kata laluan</label><input id="lp" type="password" required><div class="err" id="lerr"></div><button class="btn primary" type="submit">Log masuk</button></form></div>`;
+    return;
+  }
+  const S=SUBJ[st.gsub],D=S.data;
+  const topics=[...new Set(D.map(q=>q.t))];
+  const paperCount=Object.keys(PAPERS).map(p=>({p,c:D.filter(q=>q.src.some(s=>s.startsWith(p))).length}));
+  const tags=D.reduce((a,q)=>a+q.src.length,0);
+  const list=D.filter(q=>(!st.fPaper||q.src.some(s=>s.startsWith(st.fPaper)))&&(!st.fTopic||q.t===st.fTopic)&&(!st.fLv||(st.fLv==="Utama"?!q.d:q.d===st.fLv))&&(!st.fText||(q.q+q.o.join(" ")+q.ex+q.h+q.r+q.src.join(" ")).toLowerCase().includes(st.fText.toLowerCase())));
+  const att=load().attempts.filter(a=>a.sub===st.gsub);
+  // analisis item
+  const wrong=D.map(q=>({n:q.n,w:att.filter(a=>a.ans[q.n]!==q.a).length})).sort((a,b)=>b.w-a.w).filter(x=>x.w>0).slice(0,5);
+  V.innerHTML=`
+  <div class="row" style="justify-content:space-between"><div><h1>Dashboard Muallim</h1><p class="lead">Skema jawapan, penerangan dan tagging kertas sebenar.</p></div><button class="btn" id="logout">Log keluar</button></div>
+  <div class="subjects" style="margin-top:0">${Object.values(SUBJ).map(s=>`<button class="subj" data-gsub="${s.key}" aria-pressed="${s.key===st.gsub}"><span class="ttl"><b>${s.name}</b><span class="arname" dir="rtl">${s.arname}</span></span><small>Skema ${s.data.length} soalan</small></button>`).join("")}</div>
+  <div class="kpis">
+    <div class="kpi"><b>${D.length}</b><span>Soalan ${S.name}</span></div>
+    <div class="kpi"><b>${["Senang","Sederhana","Susah"].map(l=>D.filter(q=>q.d===l).length).join(" : ")}</b><span>Aras ekstra (senang : sederhana : susah)</span></div>
+    <div class="kpi"><b>${tags}</b><span>Tag ke soalan sebenar</span></div>
+    <div class="kpi"><b>${topics.length}</b><span>Topik</span></div>
+    <div class="kpi"><b>${att.length}</b><span>Percubaan murid (peranti ini)</span></div>
+  </div>
+  <div class="panel stack"><h2>Liputan kertas sebenar</h2>
+   <div class="tbl-wrap"><table><thead><tr><th>Kertas</th><th>Keterangan</th><th>Bil. soalan bertag</th></tr></thead><tbody>
+   ${paperCount.map(x=>`<tr><td><b>${x.p}</b></td><td>${PAPERS[x.p]}</td><td class="n">${x.c}</td></tr>`).join("")}</tbody></table></div>
+   <p class="muted" style="margin:0">Satu soalan boleh membawa lebih daripada satu tag jika topik yang sama muncul dalam beberapa kertas. Format S = nombor soalan dalam kertas asal.</p></div>
+  <div class="panel stack"><h2>Skema jawapan ringkas</h2>
+   <div class="keygrid">${D.map(q=>{const L=letters(st.gsub,q);return `<div>${q.n}<b ${S.rtl&&q.o.length===2?'dir="rtl"':""}>${q.o.length===2?(st.gsub==="ar"?(q.a===0?"صحيح":"خطأ"):(q.a===0?"B":"S")):L[q.a]}</b></div>`}).join("")}</div></div>
+  <div class="panel stack"><h2>Rekod murid</h2>
+   ${att.length?`<div class="tbl-wrap"><table><thead><tr><th>Nama</th><th>Markah</th><th>Gred</th><th>Tarikh</th></tr></thead><tbody>${att.slice(0,50).map(a=>`<tr><td>${esc(a.name)}</td><td class="n">${a.score}/${a.total||50} (${a.pct}%)</td><td>${grade(a.pct)}</td><td class="n">${new Date(a.at).toLocaleString("ms-MY")}</td></tr>`).join("")}</tbody></table></div>
+   ${wrong.length?`<p style="margin:0"><b>Soalan paling banyak salah:</b> ${wrong.map(x=>`S${x.n} (${x.w})`).join(", ")}</p>`:""}
+   <div class="inline-confirm" id="clr"><button class="btn danger" id="clr1">Padam rekod ${S.name}</button></div>`
+   :`<p class="muted" style="margin:0">Belum ada rekod. Markah murid yang menjawab di peranti ini akan tersimpan di sini secara automatik.</p>`}
+  </div>
+  <div class="panel stack"><h2>Soalan, jawapan &amp; penerangan</h2>
+   <div class="filters">
+    <select id="fp"><option value="">Semua kertas</option>${Object.keys(PAPERS).map(p=>`<option ${p===st.fPaper?"selected":""}>${p}</option>`).join("")}</select>
+    <select id="ft"><option value="">Semua topik</option>${topics.map(t=>`<option ${t===st.fTopic?"selected":""}>${esc(t)}</option>`).join("")}</select>
+    <select id="fl"><option value="">Semua aras</option>${["Utama","Senang","Sederhana","Susah"].map(l=>`<option value="${l}" ${l===st.fLv?"selected":""}>${l==="Utama"?"Set utama (1–50)":"Ekstra · "+l}</option>`).join("")}</select>
+    <input id="fx" type="text" placeholder="Cari kata kunci / S12" value="${esc(st.fText)}">
+   </div>
+   <p class="muted" style="margin:0">Memaparkan ${list.length} daripada ${D.length} soalan.</p>
+  </div>
+  <div class="stack" id="glist">${list.map(q=>qCard(st.gsub,q,true)).join("")}</div>`;
+}
+$("#view-guru").addEventListener("submit",e=>{
+  if(e.target.id!=="lf")return;e.preventDefault();
+  if($("#lu").value.trim()==="admin"&&$("#lp").value==="admin"){st.auth=true;try{sessionStorage.setItem("d5auth","1")}catch(err){}renderGuru();}
+  else $("#lerr").textContent="ID atau kata laluan tidak betul. Cuba lagi.";
+});
+$("#view-guru").addEventListener("click",e=>{
+  if(e.target.id==="logout"){st.auth=false;try{sessionStorage.removeItem("d5auth")}catch(err){}renderGuru();return;}
+  const g=e.target.closest("[data-gsub]");if(g){st.gsub=g.dataset.gsub;st.fTopic="";renderGuru();return;}
+  if(e.target.id==="clr1"){$("#clr").innerHTML=`<span>Padam semua rekod ${SUBJ[st.gsub].name}?</span><button class="btn danger" id="clr2">Ya, padam</button><button class="btn" id="clr0">Batal</button>`;return;}
+  if(e.target.id==="clr0"){renderGuru();return;}
+  if(e.target.id==="clr2"){const d=load();d.attempts=d.attempts.filter(a=>a.sub!==st.gsub);save(d);renderGuru();}
+});
+$("#view-guru").addEventListener("change",e=>{
+  if(e.target.id==="fp"){st.fPaper=e.target.value;renderGuru();}
+  if(e.target.id==="ft"){st.fTopic=e.target.value;renderGuru();}
+  if(e.target.id==="fl"){st.fLv=e.target.value;renderGuru();}
+});
+let tmr;$("#view-guru").addEventListener("input",e=>{if(e.target.id==="fx"){st.fText=e.target.value;clearTimeout(tmr);tmr=setTimeout(()=>{renderGuru();const x=$("#fx");x.focus();x.setSelectionRange(x.value.length,x.value.length)},250)}});
+
+/* ============ TAB ============ */
+function setMode(m){st.mode=m;$("#tab-murid").setAttribute("aria-pressed",m==="murid");$("#tab-guru").setAttribute("aria-pressed",m==="guru");
+  $("#view-murid").hidden=m!=="murid";$("#view-guru").hidden=m!=="guru";if(m==="guru")renderGuru();else renderMurid();window.scrollTo(0,0);}
+$("#tab-murid").onclick=()=>setMode("murid");$("#tab-guru").onclick=()=>setMode("guru");
+renderMurid();
+</script>
+
+</body></html>
