@@ -110,6 +110,45 @@ td.n{font-variant-numeric:tabular-nums}
 .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
 .muted{color:var(--muted)}
 .inline-confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+input[type=text],input[type=password],select{font-size:16px}
+.opt{min-height:46px}
+.hintbtn{min-height:36px}
+@media (max-width:640px){
+  body{font-size:15px}
+  header.top .wrap{padding-block:10px;gap:8px}
+  .brand{flex-basis:100%}
+  .brand b{font-size:1rem}
+  .brand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.72rem}
+  nav.tabs{width:100%}
+  nav.tabs button{flex:1;padding:8px 10px;font-size:.82rem}
+  main{padding-block:16px 28px}
+  h1{font-size:1.3rem}
+  h2{font-size:1.02rem}
+  .lead{font-size:.92rem}
+  .subjects{gap:10px;margin-top:12px}
+  .subj{padding:14px}
+  .q{padding:12px;gap:10px;border-radius:10px}
+  .qtext.rtl{font-size:1.28rem;line-height:1.8}
+  .opts{grid-template-columns:1fr;gap:6px}
+  .opt{padding:8px 10px}
+  .chip{font-size:.68rem;padding:2px 7px}
+  .sec-head span{width:100%}
+  .score{padding:14px;gap:12px}
+  .score .big{font-size:2rem}
+  .panel{padding:14px}
+  .kpis{grid-template-columns:1fr 1fr;gap:8px}
+  .kpi{padding:10px}
+  .kpi b{font-size:1.2rem}
+  .keygrid{grid-template-columns:repeat(5,1fr);gap:5px}
+  th,td{padding:6px 8px;font-size:.82rem}
+  .bar{padding-block:8px calc(8px + env(safe-area-inset-bottom,0px))}
+  .bar .wrap{gap:6px}
+  .progress{width:100%;font-size:.8rem;text-align:center}
+  .bar .row{width:100%;flex-wrap:nowrap;gap:8px}
+  .bar .btn{flex:1;padding:10px 8px;font-size:.85rem}
+  .bar .btn.primary{flex:2}
+  #nm{max-width:none!important}
+}
 @media (prefers-reduced-motion:no-preference){.opt,.btn,.subj{transition:background .15s,border-color .15s}}
 </style>
 
@@ -292,6 +331,14 @@ const SUBJ = {
 };
 const STORE="d5bank.v1";
 
+/* ============ SUSUN PILIHAN (rawak tetap, jawapan dikekalkan) ============ */
+function seedShuffle(D,salt){D.forEach(q=>{
+  if(q.o.length<3||q.o.some(o=>/\b(i|ii|iii|iv)\b/.test(o)))return;
+  let x=(q.n*9301+salt*49297)%233280;const rnd=()=>(x=(x*9301+49297)%233280)/233280;
+  const idx=q.o.map((_,i)=>i);for(let i=idx.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}
+  const ans=q.o[q.a];q.o=idx.map(i=>q.o[i]);q.a=q.o.indexOf(ans);});}
+seedShuffle(AR,7);seedShuffle(MU,13);
+
 /* ============ UTIL ============ */
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -311,7 +358,7 @@ function renderMurid(){
   const S=SUBJ[st.sub];
   let h=`<div><h1>Latihan Darjah 5</h1><p class="lead">Pilih subjek, jawab 65 soalan (50 soalan utama + 15 soalan ekstra PAT 2022), kemudian hantar untuk melihat markah. Setiap soalan ditag dengan kertas sebenar. Tekan "Tunjuk petunjuk" jika perlukan bantuan; petunjuk diambil daripada nota ringkas Darjah 5.</p></div>
   <div class="subjects">${Object.values(SUBJ).map(s=>`<button class="subj" data-sub="${s.key}" aria-pressed="${s.key===st.sub}"><span class="ttl"><b>${s.name}</b><span class="arname" dir="rtl">${s.arname}</span></span><small>65 soalan · 6 bahagian · rujukan PAT 2022–2025, PPT &amp; UPP2 2026</small></button>`).join("")}</div>
-  <div class="row"><label for="nm" class="muted">Nama murid</label><input id="nm" type="text" placeholder="cth: Ahmad bin Ali" value="${esc(st.name)}" style="flex:1;max-width:340px"></div>`;
+  <div class="row"><label for="nm" class="muted">Nama murid</label><input id="nm" type="text" placeholder="cth: Ahmad bin Ali" value="${esc(st.name)}" style="flex:1;min-width:0;max-width:340px"></div>`;
   if(st.submitted){
     const r=scoreOf(st.sub,st.answers);
     h+=`<div class="score"><div class="big">${r.c}/${r.t}</div><div><b>${r.pct}% · ${grade(r.pct)}</b><div class="muted">Soalan bertanda merah perlu diulang kaji. Jawapan penuh dan penerangan ada dalam Dashboard Muallim.</div></div></div>`;
@@ -434,7 +481,7 @@ let tmr;$("#view-guru").addEventListener("input",e=>{if(e.target.id==="fx"){st.f
 
 /* ============ TAB ============ */
 function setMode(m){st.mode=m;$("#tab-murid").setAttribute("aria-pressed",m==="murid");$("#tab-guru").setAttribute("aria-pressed",m==="guru");
-  $("#view-murid").hidden=m!=="murid";$("#view-guru").hidden=m!=="guru";if(m==="guru")renderGuru();else renderMurid();window.scrollTo(0,0);}
+  $("#view-murid").hidden=m!=="murid";$("#view-guru").hidden=m!=="guru";if(m==="guru")renderGuru();else renderMurid();updBar();window.scrollTo(0,0);}
 $("#tab-murid").onclick=()=>setMode("murid");$("#tab-guru").onclick=()=>setMode("guru");
 renderMurid();
 </script>
